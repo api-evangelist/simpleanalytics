@@ -1,0 +1,131 @@
+aid: simpleanalytics
+url: https://raw.githubusercontent.com/api-evangelist/simpleanalytics/refs/heads/main/apis.yml
+name: Simple Analytics
+kind: company
+description: Simple Analytics is a privacy-first, cookieless web analytics platform
+  built in the EU. It collects no personal data and needs no cookie banner, while
+  exposing a REST API to pull aggregated dashboard stats, export raw data points
+  (page views and events), collect custom events server-side, and manage the
+  websites in an account.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Analytics
+- Web Analytics
+- Privacy
+- Cookieless
+- GDPR
+created: '2026-06-21'
+modified: '2026-06-21'
+specificationVersion: '0.19'
+apis:
+- aid: simpleanalytics:simpleanalytics-stats-api
+  name: Simple Analytics Stats API
+  tags:
+  - Stats
+  - Aggregated
+  - Page Views
+  - Referrers
+  - UTM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.simpleanalytics.com/api/stats
+  baseURL: https://simpleanalytics.com
+  properties:
+  - url: https://docs.simpleanalytics.com/api/stats
+    type: Documentation
+  - url: https://docs.simpleanalytics.com/api
+    type: APIReference
+  - url: openapi/simpleanalytics-openapi.yml
+    type: OpenAPI
+  - url: collections/simpleanalytics.postman_collection.json
+    type: PostmanCollection
+  - url: collections/simpleanalytics.opencollection.json
+    type: OpenCollection
+  description: Returns the aggregated statistics shown in the dashboard as JSON -
+    pageviews, visitors, histogram, pages, countries, referrers, UTM dimensions,
+    and device/browser breakdowns - filterable by date range, page, country,
+    referrer, and UTM parameters.
+- aid: simpleanalytics:simpleanalytics-export-api
+  name: Simple Analytics Export API
+  tags:
+  - Export
+  - Data Points
+  - Raw Data
+  - Events
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.simpleanalytics.com/api/export-data-points
+  baseURL: https://simpleanalytics.com
+  properties:
+  - url: https://docs.simpleanalytics.com/api/export-data-points
+    type: Documentation
+  - url: openapi/simpleanalytics-openapi.yml
+    type: OpenAPI
+  - url: collections/simpleanalytics.postman_collection.json
+    type: PostmanCollection
+  - url: collections/simpleanalytics.opencollection.json
+    type: OpenCollection
+  description: Exports raw, per-event data points (pageviews or events) for a
+    hostname as CSV or JSON, with selectable fields and hourly or daily date
+    granularity. Requires an Api-Key and User-Id and a Business or Enterprise
+    plan.
+- aid: simpleanalytics:simpleanalytics-events-api
+  name: Simple Analytics Events API
+  tags:
+  - Events
+  - Collect
+  - Server Side
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.simpleanalytics.com/events/server-side
+  baseURL: https://queue.simpleanalyticscdn.com
+  properties:
+  - url: https://docs.simpleanalytics.com/events/server-side
+    type: Documentation
+  - url: https://docs.simpleanalytics.com/events
+    type: APIReference
+  - url: openapi/simpleanalytics-openapi.yml
+    type: OpenAPI
+  - url: collections/simpleanalytics.postman_collection.json
+    type: PostmanCollection
+  - url: collections/simpleanalytics.opencollection.json
+    type: OpenCollection
+  description: Collects custom events and pageviews server-side by POSTing a JSON
+    payload (event type, hostname, path, optional metadata) to the collection
+    endpoint, mirroring what the client-side sa_event() function sends.
+- aid: simpleanalytics:simpleanalytics-websites-api
+  name: Simple Analytics Websites API
+  tags:
+  - Websites
+  - Admin
+  - Management
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.simpleanalytics.com/api/admin
+  baseURL: https://simpleanalytics.com
+  properties:
+  - url: https://docs.simpleanalytics.com/api/admin
+    type: Documentation
+  - url: openapi/simpleanalytics-openapi.yml
+    type: OpenAPI
+  - url: collections/simpleanalytics.postman_collection.json
+    type: PostmanCollection
+  - url: collections/simpleanalytics.opencollection.json
+    type: OpenCollection
+  description: Admin endpoints to list the websites in an account and add a new
+    website (hostname, timezone, public flag, label). Listing works on all plans;
+    adding requires a Business or Enterprise plan.
+common:
+- type: GitHubOrganization
+  url: https://github.com/simpleanalytics
+- type: LinkedIn
+  url: https://www.linkedin.com/company/simpleanalytics
+- type: Website
+  url: https://www.simpleanalytics.com
+- type: Documentation
+  url: https://docs.simpleanalytics.com/api
+- type: Plans
+  url: plans/simpleanalytics-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/simpleanalytics-rate-limits.yml
+- type: FinOps
+  url: finops/simpleanalytics-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

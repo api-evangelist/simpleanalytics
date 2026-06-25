@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Simple Analytics
+providerId: simpleanalytics
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Analytics
+- Web Analytics
+- Privacy
+- Cookieless
+- GDPR
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Simple Analytics does not publish specific numeric request-per-minute rate
+  limits for its Stats, Export, Admin, or event collection APIs. The primary
+  usage constraint is the monthly data point (page views plus events) allowance
+  tied to the account plan, plus a fair-use policy on the free plan. Export and
+  add-website endpoints are additionally gated to Business and Enterprise plans.
+  Specific per-endpoint throttling values are not reconciled in this artifact.
+notes: >-
+  No documented numeric rate limits were found. Verify whether throttling or
+  per-minute limits exist on the Stats and Export endpoints during
+  reconciliation; the binding quota is the monthly data point allowance.
+sources:
+- https://docs.simpleanalytics.com/api
+- https://docs.simpleanalytics.com/api/export-data-points
+- https://www.simpleanalytics.com/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Monthly Data Points
+  scope: account
+  metric: datapoints
+  limit: see plan allowance
+  notes: Page views plus events per month; allowance is set by the account plan.
+- name: Tracked Websites
+  scope: account
+  metric: websites
+  limit: see plan allowance
+  notes: Number of websites that can be tracked, set by the account plan.
+- name: Stats API Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: No specific numeric per-minute limit is documented.
+- name: Export API Requests
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Export is restricted to Business and Enterprise plans; no numeric limit documented.
+policies:
+- name: Fair Use
+  description: The free plan provides unlimited page views subject to a fair-use policy.
+- name: Plan Gating
+  description: Raw export and add-website endpoints require a Business or Enterprise plan.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

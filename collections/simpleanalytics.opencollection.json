@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Simple Analytics API",
+    "version": "6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "Api-Key",
+        "value": "{{apiKey}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get aggregated statistics for a website.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://simpleanalytics.com/{hostname}.json?version=6&fields=pageviews,visitors,histogram,pages,referrers,countries&start=2026-05-25&end=2026-06-24&timezone=Europe/Amsterdam"
+          },
+          "docs": "Returns the aggregated statistics shown in the dashboard as JSON for the given hostname. Public websites can be queried without credentials; private websites require Api-Key and User-Id headers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export raw data points.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://simpleanalytics.com/api/export/datapoints?version=6&format=json&hostname=simpleanalytics.com&type=pageviews&start=2026-05-25&end=2026-06-24&fields=added_iso,hostname,path,referrer&timezone=Europe/Amsterdam&robots=false"
+          },
+          "docs": "Exports raw, per-event data points (pageviews or events) for a hostname as CSV or JSON. Requires Api-Key and User-Id headers and a Business or Enterprise plan."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Websites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List websites.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://simpleanalytics.com/api/websites"
+          },
+          "docs": "Returns all websites for the authenticated user. Available on all plans. Requires Api-Key and User-Id headers."
+        },
+        {
+          "info": {
+            "name": "Add a website.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://simpleanalytics.com/api/websites/add",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"hostname\": \"example.com\",\n  \"timezone\": \"Europe/Amsterdam\",\n  \"public\": false,\n  \"label\": \"Example\"\n}"
+            }
+          },
+          "docs": "Adds a new website to the dashboard. Requires a Business or Enterprise plan and Api-Key and User-Id headers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Collect a server-side event or pageview.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://queue.simpleanalyticscdn.com/events",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"type\": \"event\",\n  \"hostname\": \"example.com\",\n  \"event\": \"click_signup\",\n  \"path\": \"/pricing\"\n}"
+            }
+          },
+          "docs": "Sends a custom event or pageview to Simple Analytics from the server side by POSTing a JSON payload to the collection endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

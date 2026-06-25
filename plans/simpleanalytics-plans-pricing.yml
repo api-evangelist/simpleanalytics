@@ -1,0 +1,171 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Simple Analytics
+providerId: simpleanalytics
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Analytics
+- Web Analytics
+- Privacy
+- Cookieless
+- GDPR
+- Plans
+description: >-
+  Simple Analytics offers a free forever plan plus paid plans scaled by the
+  number of data points (page views plus events) collected per month and the
+  number of tracked websites. Paid tiers have historically been published as
+  Starter and Business with set data point allowances; the current pricing page
+  also presents a usage-slider "self-serve" subscription (100k to 2.5M data
+  points per month) and an Enterprise plan. Raw, per-event data export and the
+  add-website Admin endpoint require a Business or Enterprise plan. Prices below
+  are representative and should be reconciled against the live pricing page.
+notes: >-
+  Plan names and prices change; the pricing page now blends Starter/Business
+  into a usage-slider subscription. Verify the live page on reconciliation.
+sources:
+- https://www.simpleanalytics.com/pricing
+- https://docs.simpleanalytics.com/api
+plans:
+- id: simpleanalytics-free
+  name: Free
+  type: free
+  description: >-
+    Free forever cookieless analytics with a one-page dashboard, no cookie
+    banner, EU hosting, and a fair-use page view allowance.
+  entries:
+  - label: Data Points
+    name: free_datapoints
+    type: limit
+    metric: datapoints
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 (unlimited under fair use)
+    userMultiplied: false
+  - label: Websites
+    name: free_websites
+    type: limit
+    metric: websites
+    limit: 5
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: History
+    name: free_history
+    type: limit
+    metric: days
+    limit: 30
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Stats API
+  - name: Aggregated Export
+  - name: List Websites
+- id: simpleanalytics-starter
+  name: Starter
+  type: subscription
+  description: >-
+    Entry paid plan with a 100k data point per month allowance and aggregated
+    export, billed monthly or annually.
+  entries:
+  - label: Data Points
+    name: starter_datapoints
+    type: limit
+    metric: datapoints
+    limit: 100000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from ~$9-$20/mo (annual/monthly)
+    userMultiplied: false
+  - label: Websites
+    name: starter_websites
+    type: limit
+    metric: websites
+    limit: 10
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Stats API
+  - name: Aggregated Export
+  - name: List Websites
+- id: simpleanalytics-business
+  name: Business
+  type: subscription
+  description: >-
+    Higher-volume paid plan with up to 1M+ data points per month, raw per-event
+    data export, and the add-website Admin endpoint.
+  entries:
+  - label: Data Points
+    name: business_datapoints
+    type: limit
+    metric: datapoints
+    limit: 1000000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from ~$49-$59/mo (annual/monthly)
+    userMultiplied: false
+  - label: Websites
+    name: business_websites
+    type: limit
+    metric: websites
+    limit: 100
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Additional Users
+    name: business_extra_users
+    type: usage
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~$20/mo per additional user
+    userMultiplied: true
+  elements:
+  - name: Stats API
+  - name: Raw Level Export
+  - name: Export API
+  - name: List Websites
+  - name: Add Website
+- id: simpleanalytics-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom data point volumes, unlimited users and history, traffic recovery,
+    warehouse/BI exports, and negotiated terms. Contact sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: Raw Data Access
+  - name: Warehouse and BI Export
+  - name: Team Reporting
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,68 @@
+aid: simpleanalytics
+name: Simple Analytics
+review:
+  question: Does Simple Analytics expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Simple Analytics exposes only request /
+    response REST (HTTPS) APIs - the Stats API, the Export API, the Admin
+    (websites) API, and the server-side event collection endpoint. There is no
+    documented streaming surface (no Server-Sent Events and no WebSocket), so
+    there is nothing in scope for AsyncAPI modeling.
+findings:
+  summary: |
+    Simple Analytics does not publish a documented public WebSocket API. The
+    platform exposes plain HTTPS REST endpoints: aggregated dashboard stats at
+    GET https://simpleanalytics.com/{hostname}.json, raw data point export at
+    GET https://simpleanalytics.com/api/export/datapoints, website
+    administration at GET https://simpleanalytics.com/api/websites and POST
+    https://simpleanalytics.com/api/websites/add, and server-side event
+    collection at POST https://queue.simpleanalyticscdn.com/events. No
+    realtime, bidirectional, or streaming WebSocket (ws:// or wss://) endpoint
+    is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://simpleanalytics.com
+      documented: true
+    - protocol: REST
+      scheme: https
+      baseURL: https://queue.simpleanalyticscdn.com
+      note: Server-side event collection endpoint.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the Simple Analytics API, events, or any other product page as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://simpleanalytics.com/{hostname}.json
+    - GET  https://simpleanalytics.com/api/export/datapoints
+    - GET  https://simpleanalytics.com/api/websites
+    - POST https://simpleanalytics.com/api/websites/add
+    - POST https://queue.simpleanalyticscdn.com/events
+sources:
+  - url: https://docs.simpleanalytics.com/api
+    type: Documentation
+    note: API overview lists Stats, Export, and Admin REST APIs; no WebSocket mentioned.
+  - url: https://docs.simpleanalytics.com/api/stats
+    type: Documentation
+    note: Stats API is a GET against https://simpleanalytics.com/{hostname}.json returning JSON.
+  - url: https://docs.simpleanalytics.com/api/export-data-points
+    type: Documentation
+    note: Export API is a GET against /api/export/datapoints returning CSV or JSON.
+  - url: https://docs.simpleanalytics.com/api/admin
+    type: Documentation
+    note: Admin API lists websites and adds a website over REST.
+  - url: https://docs.simpleanalytics.com/events
+    type: Documentation
+    note: Events are collected via POST to the queue.simpleanalyticscdn.com endpoint; no WebSocket streaming.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: false
+  reason: |
+    No WebSocket or SSE protocol surface exists, so no AsyncAPI document was
+    authored and apis.yml was not changed. All documented interfaces are
+    request / response REST over HTTPS.

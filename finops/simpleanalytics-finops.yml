@@ -1,0 +1,86 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Simple Analytics
+providerId: simpleanalytics
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Analytics
+- Web Analytics
+- Privacy
+- Cookieless
+- GDPR
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Simple Analytics spend. Simple Analytics bills a flat monthly
+  or annual subscription scaled by the number of data points (page views plus
+  events) collected per month and the number of tracked websites, with extra
+  per-user charges on higher plans. There is no per-API-call metered billing;
+  cost is driven by the monthly data point volume and the chosen plan tier.
+notes: >-
+  Plan prices and data point tiers change; verify against the live pricing page
+  during reconciliation.
+sources:
+- https://www.simpleanalytics.com/pricing
+- https://docs.simpleanalytics.com/api
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Simple Analytics
+serviceCategory: Analytics
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: Simple Analytics
+  ServiceCategory: Analytics
+  ProviderName: Simple Analytics
+  PublisherName: Simple Analytics
+  InvoiceIssuerName: Simple Analytics
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Subscription-Based
+meters:
+- name: datapoints
+  description: Page views plus events collected per month, counted against the plan allowance.
+  unit: datapoints
+  aggregation: sum
+  dimensions:
+  - account
+  - website
+- name: websites
+  description: Number of tracked websites against the plan allowance.
+  unit: websites
+  aggregation: max
+  dimensions:
+  - account
+- name: additional_users
+  description: Extra users beyond the included seat, billed per user per month.
+  unit: users
+  aggregation: max
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track monthly data point consumption per website against the plan allowance.
+- name: Allocation
+  description: Map each tracked website and API key to its owning team or cost center.
+- name: Optimization
+  description: Right-size the plan tier to actual data point volume; consolidate websites where possible.
+- name: Accountability
+  description: Review the subscription tier and additional-user seats against budget each billing cycle.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

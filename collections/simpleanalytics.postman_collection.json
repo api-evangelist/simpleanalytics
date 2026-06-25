@@ -1,0 +1,252 @@
+{
+  "item": [
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Stats",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1b2c3d4-0001-4000-8000-000000000002",
+          "name": "Get aggregated statistics for a website.",
+          "request": {
+            "name": "Get aggregated statistics for a website.",
+            "description": {
+              "content": "Returns the aggregated statistics shown in the dashboard as JSON for the given hostname. Public websites can be queried without credentials; private websites require Api-Key and User-Id headers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/{{hostname}}.json?version=6&fields=pageviews,visitors,histogram,pages,referrers,countries&start=2026-05-25&end=2026-06-24&timezone=Europe/Amsterdam",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{hostname}}.json"
+              ],
+              "query": [
+                { "key": "version", "value": "6" },
+                { "key": "fields", "value": "pageviews,visitors,histogram,pages,referrers,countries" },
+                { "key": "start", "value": "2026-05-25" },
+                { "key": "end", "value": "2026-06-24" },
+                { "key": "timezone", "value": "Europe/Amsterdam" }
+              ],
+              "variable": []
+            },
+            "header": [
+              { "key": "Api-Key", "value": "{{apiKey}}" },
+              { "key": "User-Id", "value": "{{userId}}" }
+            ],
+            "method": "GET"
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1b2c3d4-0002-4000-8000-000000000001",
+      "name": "Export",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1b2c3d4-0002-4000-8000-000000000002",
+          "name": "Export raw data points.",
+          "request": {
+            "name": "Export raw data points.",
+            "description": {
+              "content": "Exports raw, per-event data points (pageviews or events) for a hostname as CSV or JSON. Requires Api-Key and User-Id headers and a Business or Enterprise plan.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/export/datapoints?version=6&format=json&hostname=simpleanalytics.com&type=pageviews&start=2026-05-25&end=2026-06-24&fields=added_iso,hostname,path,referrer&timezone=Europe/Amsterdam&robots=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "export",
+                "datapoints"
+              ],
+              "query": [
+                { "key": "version", "value": "6" },
+                { "key": "format", "value": "json" },
+                { "key": "hostname", "value": "simpleanalytics.com" },
+                { "key": "type", "value": "pageviews" },
+                { "key": "start", "value": "2026-05-25" },
+                { "key": "end", "value": "2026-06-24" },
+                { "key": "fields", "value": "added_iso,hostname,path,referrer" },
+                { "key": "timezone", "value": "Europe/Amsterdam" },
+                { "key": "robots", "value": "false" }
+              ],
+              "variable": []
+            },
+            "header": [
+              { "key": "Api-Key", "value": "{{apiKey}}" },
+              { "key": "User-Id", "value": "{{userId}}" }
+            ],
+            "method": "GET"
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1b2c3d4-0003-4000-8000-000000000001",
+      "name": "Websites",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1b2c3d4-0003-4000-8000-000000000002",
+          "name": "List websites.",
+          "request": {
+            "name": "List websites.",
+            "description": {
+              "content": "Returns all websites for the authenticated user. Available on all plans. Requires Api-Key and User-Id headers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/websites",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "websites"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              { "key": "Api-Key", "value": "{{apiKey}}" },
+              { "key": "User-Id", "value": "{{userId}}" }
+            ],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "id": "a1b2c3d4-0003-4000-8000-000000000003",
+          "name": "Add a website.",
+          "request": {
+            "name": "Add a website.",
+            "description": {
+              "content": "Adds a new website to the dashboard. Requires a Business or Enterprise plan and Api-Key and User-Id headers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/websites/add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "websites",
+                "add"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Api-Key", "value": "{{apiKey}}" },
+              { "key": "User-Id", "value": "{{userId}}" }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostname\": \"example.com\",\n  \"timezone\": \"Europe/Amsterdam\",\n  \"public\": false,\n  \"label\": \"Example\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1b2c3d4-0004-4000-8000-000000000001",
+      "name": "Events",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1b2c3d4-0004-4000-8000-000000000002",
+          "name": "Collect a server-side event or pageview.",
+          "request": {
+            "name": "Collect a server-side event or pageview.",
+            "description": {
+              "content": "Sends a custom event or pageview to Simple Analytics from the server side by POSTing a JSON payload to the collection endpoint at https://queue.simpleanalyticscdn.com/events.",
+              "type": "text/plain"
+            },
+            "url": {
+              "raw": "https://queue.simpleanalyticscdn.com/events",
+              "host": [
+                "https://queue.simpleanalyticscdn.com"
+              ],
+              "path": [
+                "events"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"event\",\n  \"hostname\": \"example.com\",\n  \"event\": \"click_signup\",\n  \"path\": \"/pricing\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://simpleanalytics.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "Api-Key" },
+      { "key": "value", "value": "{{apiKey}}" },
+      { "key": "in", "value": "header" }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1b2c3d4-0000-4000-8000-000000000000",
+    "name": "Simple Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Simple Analytics REST API - Stats, Export, Websites (Admin), and server-side Events.\n\nContact Support:\n Name: Simple Analytics Support\n Email: support@simpleanalytics.com",
+      "type": "text/plain"
+    }
+  }
+}
