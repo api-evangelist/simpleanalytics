@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/simpleanalytics-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Api-Key
+  description: API key starting with sa_api_key_
+  sources:
+  - openapi/simpleanalytics-openapi.yml
+- name: UserId
+  type: apiKey
+  in: header
+  parameter: User-Id
+  description: User identifier starting with sa_user_id_
+  sources:
+  - openapi/simpleanalytics-openapi.yml

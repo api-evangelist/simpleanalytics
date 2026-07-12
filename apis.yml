@@ -112,6 +112,12 @@ apis:
     website (hostname, timezone, public flag, label). Listing works on all plans;
     adding requires a Business or Enterprise plan.
 common:
+- type: DomainSecurity
+  url: security/simpleanalytics-domain-security.yml
+- type: Authentication
+  url: authentication/simpleanalytics-authentication.yml
+- url: https://simpleanalytics.com/blog
+  type: Blog
 - type: GitHubOrganization
   url: https://github.com/simpleanalytics
 - type: LinkedIn
