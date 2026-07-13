@@ -1,0 +1,21 @@
+{
+  "repo": "simpleanalytics",
+  "feeds": [
+    {
+      "source": "https://www.simpleanalytics.com/feed.xml",
+      "feed_url": "https://www.simpleanalytics.com/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://simpleanalytics.com/blog",
+      "feed_url": "https://www.simpleanalytics.com/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 57
+}
