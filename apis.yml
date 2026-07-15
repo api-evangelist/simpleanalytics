@@ -112,6 +112,8 @@ apis:
     website (hostname, timezone, public flag, label). Listing works on all plans;
     adding requires a Business or Enterprise plan.
 common:
+- type: AgenticAccess
+  url: agentic-access/simpleanalytics-agentic-access.yml
 - type: DomainSecurity
   url: security/simpleanalytics-domain-security.yml
 - type: Authentication
