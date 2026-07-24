@@ -1,0 +1,74 @@
+openapi: 3.0.1
+info:
+  title: Simple Analytics Events API
+  description: Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).
+  termsOfService: https://www.simpleanalytics.com/terms
+  contact:
+    name: Simple Analytics Support
+    email: support@simpleanalytics.com
+  version: '6'
+servers:
+- url: https://simpleanalytics.com
+  description: Stats, Export, and Admin API
+- url: https://queue.simpleanalyticscdn.com
+  description: Event collection endpoint
+security:
+- ApiKeyAuth: []
+  UserId: []
+tags:
+- name: Events
+paths:
+  /events:
+    post:
+      operationId: collectEvent
+      tags:
+      - Events
+      summary: Collect a server-side event or pageview.
+      description: Sends a custom event or pageview to Simple Analytics from the server side. POST to https://queue.simpleanalyticscdn.com/events with a JSON payload describing the event.
+      servers:
+      - url: https://queue.simpleanalyticscdn.com
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectEventRequest'
+      responses:
+        '201':
+          description: Event accepted.
+components:
+  schemas:
+    CollectEventRequest:
+      type: object
+      required:
+      - type
+      - hostname
+      properties:
+        type:
+          type: string
+          description: Event type, e.g. event or pageview.
+          example: event
+        hostname:
+          type: string
+        event:
+          type: string
+          description: Custom event name (alphanumeric and underscores, max 200 chars).
+        path:
+          type: string
+        ua:
+          type: string
+          description: User agent string.
+        metadata:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: API key starting with sa_api_key_
+    UserId:
+      type: apiKey
+      in: header
+      name: User-Id
+      description: User identifier starting with sa_user_id_

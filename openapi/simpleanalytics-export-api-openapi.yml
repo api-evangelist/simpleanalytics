@@ -1,0 +1,133 @@
+openapi: 3.0.1
+info:
+  title: Simple Analytics Events Export API
+  description: Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).
+  termsOfService: https://www.simpleanalytics.com/terms
+  contact:
+    name: Simple Analytics Support
+    email: support@simpleanalytics.com
+  version: '6'
+servers:
+- url: https://simpleanalytics.com
+  description: Stats, Export, and Admin API
+- url: https://queue.simpleanalyticscdn.com
+  description: Event collection endpoint
+security:
+- ApiKeyAuth: []
+  UserId: []
+tags:
+- name: Export
+paths:
+  /api/export/datapoints:
+    get:
+      operationId: exportDataPoints
+      tags:
+      - Export
+      summary: Export raw data points.
+      description: Exports raw, per-event data points (pageviews or events) for a hostname as CSV or JSON. Requires Api-Key and User-Id headers and a Business or Enterprise plan.
+      parameters:
+      - name: version
+        in: query
+        required: true
+        schema:
+          type: integer
+          default: 6
+      - name: format
+        in: query
+        required: true
+        description: Response format.
+        schema:
+          type: string
+          enum:
+          - csv
+          - json
+      - name: hostname
+        in: query
+        required: true
+        description: Website hostname to export data from.
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        description: Data type to export.
+        schema:
+          type: string
+          enum:
+          - pageviews
+          - events
+      - name: start
+        in: query
+        required: true
+        description: Start date as YYYY-MM-DD or YYYY-MM-DDTHH for hourly granularity.
+        schema:
+          type: string
+      - name: end
+        in: query
+        required: true
+        description: End date as YYYY-MM-DD or YYYY-MM-DDTHH for hourly granularity.
+        schema:
+          type: string
+      - name: fields
+        in: query
+        required: true
+        description: Comma-separated list of fields to include, e.g. added_iso,hostname,path,referrer.
+        schema:
+          type: string
+      - name: timezone
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: robots
+        in: query
+        description: Whether to include robot traffic.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Raw data points in the requested format.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataPoint'
+            text/csv:
+              schema:
+                type: string
+components:
+  schemas:
+    DataPoint:
+      type: object
+      properties:
+        added_iso:
+          type: string
+          format: date-time
+        hostname:
+          type: string
+        path:
+          type: string
+        referrer:
+          type: string
+        utm_source:
+          type: string
+        country_code:
+          type: string
+        browser_name:
+          type: string
+        os_name:
+          type: string
+        device_type:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: API key starting with sa_api_key_
+    UserId:
+      type: apiKey
+      in: header
+      name: User-Id
+      description: User identifier starting with sa_user_id_

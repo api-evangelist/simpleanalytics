@@ -1,0 +1,97 @@
+openapi: 3.0.1
+info:
+  title: Simple Analytics Events Websites API
+  description: Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).
+  termsOfService: https://www.simpleanalytics.com/terms
+  contact:
+    name: Simple Analytics Support
+    email: support@simpleanalytics.com
+  version: '6'
+servers:
+- url: https://simpleanalytics.com
+  description: Stats, Export, and Admin API
+- url: https://queue.simpleanalyticscdn.com
+  description: Event collection endpoint
+security:
+- ApiKeyAuth: []
+  UserId: []
+tags:
+- name: Websites
+paths:
+  /api/websites:
+    get:
+      operationId: listWebsites
+      tags:
+      - Websites
+      summary: List websites.
+      description: Returns all websites for the authenticated user. Available on all plans. Requires Api-Key and User-Id headers.
+      responses:
+        '200':
+          description: A list of websites.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Website'
+  /api/websites/add:
+    post:
+      operationId: addWebsite
+      tags:
+      - Websites
+      summary: Add a website.
+      description: Adds a new website to the dashboard. Requires a Business or Enterprise plan and Api-Key and User-Id headers.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddWebsiteRequest'
+      responses:
+        '200':
+          description: The created website.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Website'
+components:
+  schemas:
+    Website:
+      type: object
+      properties:
+        hostname:
+          type: string
+        public:
+          type: boolean
+        timezone:
+          type: string
+        label:
+          type: string
+    AddWebsiteRequest:
+      type: object
+      required:
+      - hostname
+      properties:
+        hostname:
+          type: string
+          description: Domain name of the website to add.
+        timezone:
+          type: string
+          description: Timezone for the website. Defaults to UTC.
+        public:
+          type: boolean
+          description: Whether the website stats are public.
+        label:
+          type: string
+          description: A custom label for organizing the website.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: API key starting with sa_api_key_
+    UserId:
+      type: apiKey
+      in: header
+      name: User-Id
+      description: User identifier starting with sa_user_id_

@@ -1,0 +1,187 @@
+openapi: 3.0.1
+info:
+  title: Simple Analytics Events Stats API
+  description: Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).
+  termsOfService: https://www.simpleanalytics.com/terms
+  contact:
+    name: Simple Analytics Support
+    email: support@simpleanalytics.com
+  version: '6'
+servers:
+- url: https://simpleanalytics.com
+  description: Stats, Export, and Admin API
+- url: https://queue.simpleanalyticscdn.com
+  description: Event collection endpoint
+security:
+- ApiKeyAuth: []
+  UserId: []
+tags:
+- name: Stats
+paths:
+  /{hostname}.json:
+    get:
+      operationId: getStats
+      tags:
+      - Stats
+      summary: Get aggregated statistics for a website.
+      description: Returns the aggregated statistics shown in the dashboard as JSON for the given hostname. Public websites can be queried without credentials; private websites require Api-Key and User-Id headers.
+      parameters:
+      - name: hostname
+        in: path
+        required: true
+        description: The website hostname, e.g. simpleanalytics.com
+        schema:
+          type: string
+      - name: version
+        in: query
+        description: API version. Latest is 6.
+        schema:
+          type: integer
+          default: 6
+      - name: start
+        in: query
+        description: Start date in YYYY-MM-DD format. Defaults to one month ago.
+        schema:
+          type: string
+      - name: end
+        in: query
+        description: End date in YYYY-MM-DD format. Defaults to today.
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Comma-separated list of fields to return, e.g. pageviews,visitors,histogram,pages,countries,referrers,utm_sources.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of results for list fields (1-1000).
+        schema:
+          type: integer
+      - name: timezone
+        in: query
+        description: A valid timezone such as Europe/Amsterdam.
+        schema:
+          type: string
+      - name: interval
+        in: query
+        description: Histogram interval.
+        schema:
+          type: string
+          enum:
+          - hour
+          - day
+          - week
+          - month
+          - year
+      - name: page
+        in: query
+        description: Filter by a page path, supports the * wildcard.
+        schema:
+          type: string
+      - name: country
+        in: query
+        description: Filter by ISO country code.
+        schema:
+          type: string
+      - name: referrer
+        in: query
+        description: Filter by referrer.
+        schema:
+          type: string
+      - name: utm_source
+        in: query
+        schema:
+          type: string
+      - name: utm_medium
+        in: query
+        schema:
+          type: string
+      - name: utm_campaign
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Aggregated statistics for the website.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stats'
+components:
+  schemas:
+    Stats:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        pageviews:
+          type: integer
+        visitors:
+          type: integer
+        start:
+          type: string
+        end:
+          type: string
+        histogram:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              pageviews:
+                type: integer
+              visitors:
+                type: integer
+        pages:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              pageviews:
+                type: integer
+              visitors:
+                type: integer
+        referrers:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              pageviews:
+                type: integer
+              visitors:
+                type: integer
+        countries:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              visitors:
+                type: integer
+        utm_sources:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              visitors:
+                type: integer
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: API key starting with sa_api_key_
+    UserId:
+      type: apiKey
+      in: header
+      name: User-Id
+      description: User identifier starting with sa_user_id_
