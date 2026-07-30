@@ -7,7 +7,20 @@ description: Simple Analytics is a privacy-first, cookieless web analytics platf
   exposing a REST API to pull aggregated dashboard stats, export raw data points
   (page views and events), collect custom events server-side, and manage the
   websites in an account.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/simpleanalytics.png
 tags:
 - Analytics
 - Web Analytics
@@ -18,99 +31,110 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: simpleanalytics:simpleanalytics-stats-api
-  name: Simple Analytics Stats API
-  tags:
-  - Stats
-  - Aggregated
-  - Page Views
-  - Referrers
-  - UTM
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.simpleanalytics.com/api/stats
-  baseURL: https://simpleanalytics.com
-  properties:
-  - url: https://docs.simpleanalytics.com/api/stats
-    type: Documentation
-  - url: https://docs.simpleanalytics.com/api
-    type: APIReference
-  - url: openapi/simpleanalytics-openapi.yml
-    type: OpenAPI
-  - url: collections/simpleanalytics.postman_collection.json
-    type: PostmanCollection
-  - url: collections/simpleanalytics.opencollection.json
-    type: OpenCollection
-  description: Returns the aggregated statistics shown in the dashboard as JSON -
-    pageviews, visitors, histogram, pages, countries, referrers, UTM dimensions,
-    and device/browser breakdowns - filterable by date range, page, country,
-    referrer, and UTM parameters.
-- aid: simpleanalytics:simpleanalytics-export-api
-  name: Simple Analytics Export API
-  tags:
-  - Export
-  - Data Points
-  - Raw Data
-  - Events
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.simpleanalytics.com/api/export-data-points
-  baseURL: https://simpleanalytics.com
-  properties:
-  - url: https://docs.simpleanalytics.com/api/export-data-points
-    type: Documentation
-  - url: openapi/simpleanalytics-openapi.yml
-    type: OpenAPI
-  - url: collections/simpleanalytics.postman_collection.json
-    type: PostmanCollection
-  - url: collections/simpleanalytics.opencollection.json
-    type: OpenCollection
-  description: Exports raw, per-event data points (pageviews or events) for a
-    hostname as CSV or JSON, with selectable fields and hourly or daily date
-    granularity. Requires an Api-Key and User-Id and a Business or Enterprise
-    plan.
 - aid: simpleanalytics:simpleanalytics-events-api
   name: Simple Analytics Events API
+  description: The Events API from Simple Analytics — 1 operation(s) for events.
+  humanURL: https://docs.simpleanalytics.com/api/stats
+  baseURL: https://simpleanalytics.com
   tags:
   - Events
-  - Collect
-  - Server Side
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.simpleanalytics.com/events/server-side
-  baseURL: https://queue.simpleanalyticscdn.com
   properties:
-  - url: https://docs.simpleanalytics.com/events/server-side
-    type: Documentation
-  - url: https://docs.simpleanalytics.com/events
-    type: APIReference
-  - url: openapi/simpleanalytics-openapi.yml
-    type: OpenAPI
-  - url: collections/simpleanalytics.postman_collection.json
-    type: PostmanCollection
-  - url: collections/simpleanalytics.opencollection.json
-    type: OpenCollection
-  description: Collects custom events and pageviews server-side by POSTing a JSON
-    payload (event type, hostname, path, optional metadata) to the collection
-    endpoint, mirroring what the client-side sa_event() function sends.
+  - type: OpenAPI
+    url: openapi/simpleanalytics-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/stats
+  - type: APIReference
+    url: https://docs.simpleanalytics.com/api
+  - type: PostmanCollection
+    url: collections/simpleanalytics.postman_collection.json
+  - type: OpenCollection
+    url: collections/simpleanalytics.opencollection.json
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/export-data-points
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/events/server-side
+  - type: APIReference
+    url: https://docs.simpleanalytics.com/events
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/admin
+- aid: simpleanalytics:simpleanalytics-export-api
+  name: Simple Analytics Export API
+  description: The Export API from Simple Analytics — 1 operation(s) for export.
+  humanURL: https://docs.simpleanalytics.com/api/stats
+  baseURL: https://simpleanalytics.com
+  tags:
+  - Export
+  properties:
+  - type: OpenAPI
+    url: openapi/simpleanalytics-export-api-openapi.yml
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/stats
+  - type: APIReference
+    url: https://docs.simpleanalytics.com/api
+  - type: PostmanCollection
+    url: collections/simpleanalytics.postman_collection.json
+  - type: OpenCollection
+    url: collections/simpleanalytics.opencollection.json
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/export-data-points
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/events/server-side
+  - type: APIReference
+    url: https://docs.simpleanalytics.com/events
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/admin
+- aid: simpleanalytics:simpleanalytics-stats-api
+  name: Simple Analytics Stats API
+  description: The Stats API from Simple Analytics — 1 operation(s) for stats.
+  humanURL: https://docs.simpleanalytics.com/api/stats
+  baseURL: https://simpleanalytics.com
+  tags:
+  - Stats
+  properties:
+  - type: OpenAPI
+    url: openapi/simpleanalytics-stats-api-openapi.yml
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/stats
+  - type: APIReference
+    url: https://docs.simpleanalytics.com/api
+  - type: PostmanCollection
+    url: collections/simpleanalytics.postman_collection.json
+  - type: OpenCollection
+    url: collections/simpleanalytics.opencollection.json
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/export-data-points
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/events/server-side
+  - type: APIReference
+    url: https://docs.simpleanalytics.com/events
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/admin
 - aid: simpleanalytics:simpleanalytics-websites-api
   name: Simple Analytics Websites API
+  description: The Websites API from Simple Analytics — 2 operation(s) for websites.
+  humanURL: https://docs.simpleanalytics.com/api/stats
+  baseURL: https://simpleanalytics.com
   tags:
   - Websites
-  - Admin
-  - Management
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.simpleanalytics.com/api/admin
-  baseURL: https://simpleanalytics.com
   properties:
-  - url: https://docs.simpleanalytics.com/api/admin
-    type: Documentation
-  - url: openapi/simpleanalytics-openapi.yml
-    type: OpenAPI
-  - url: collections/simpleanalytics.postman_collection.json
-    type: PostmanCollection
-  - url: collections/simpleanalytics.opencollection.json
-    type: OpenCollection
-  description: Admin endpoints to list the websites in an account and add a new
-    website (hostname, timezone, public flag, label). Listing works on all plans;
-    adding requires a Business or Enterprise plan.
+  - type: OpenAPI
+    url: openapi/simpleanalytics-websites-api-openapi.yml
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/stats
+  - type: APIReference
+    url: https://docs.simpleanalytics.com/api
+  - type: PostmanCollection
+    url: collections/simpleanalytics.postman_collection.json
+  - type: OpenCollection
+    url: collections/simpleanalytics.opencollection.json
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/export-data-points
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/events/server-side
+  - type: APIReference
+    url: https://docs.simpleanalytics.com/events
+  - type: Documentation
+    url: https://docs.simpleanalytics.com/api/admin
 common:
 - type: AgenticAccess
   url: agentic-access/simpleanalytics-agentic-access.yml
