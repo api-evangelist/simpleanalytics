@@ -1,0 +1,20 @@
+{
+  "provider": "simpleanalytics",
+  "sources": [
+    "simpleanalytics-events-api-openapi.yml",
+    "simpleanalytics-export-api-openapi.yml",
+    "simpleanalytics-stats-api-openapi.yml",
+    "simpleanalytics-websites-api-openapi.yml"
+  ],
+  "outputs": [
+    "simpleanalytics-events-api-openapi.yml",
+    "simpleanalytics-export-api-openapi.yml",
+    "simpleanalytics-stats-api-openapi.yml",
+    "simpleanalytics-websites-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

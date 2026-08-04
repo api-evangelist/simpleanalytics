@@ -1,0 +1,411 @@
+openapi: 3.0.1
+info:
+  title: Simple Analytics API
+  description: >-
+    Specification of the Simple Analytics REST API. Simple Analytics is a
+    privacy-first, cookieless web analytics platform. The API exposes aggregated
+    dashboard statistics (Stats API), raw data point exports (Export API),
+    server-side event collection, and website administration (Admin API).
+  termsOfService: https://www.simpleanalytics.com/terms
+  contact:
+    name: Simple Analytics Support
+    email: support@simpleanalytics.com
+  version: '6'
+servers:
+  - url: https://simpleanalytics.com
+    description: Stats, Export, and Admin API
+  - url: https://queue.simpleanalyticscdn.com
+    description: Event collection endpoint
+security:
+  - ApiKeyAuth: []
+    UserId: []
+paths:
+  /{hostname}.json:
+    get:
+      operationId: getStats
+      tags:
+        - Stats
+      summary: Get aggregated statistics for a website.
+      description: >-
+        Returns the aggregated statistics shown in the dashboard as JSON for the
+        given hostname. Public websites can be queried without credentials;
+        private websites require Api-Key and User-Id headers.
+      parameters:
+        - name: hostname
+          in: path
+          required: true
+          description: The website hostname, e.g. simpleanalytics.com
+          schema:
+            type: string
+        - name: version
+          in: query
+          description: API version. Latest is 6.
+          schema:
+            type: integer
+            default: 6
+        - name: start
+          in: query
+          description: Start date in YYYY-MM-DD format. Defaults to one month ago.
+          schema:
+            type: string
+        - name: end
+          in: query
+          description: End date in YYYY-MM-DD format. Defaults to today.
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: >-
+            Comma-separated list of fields to return, e.g.
+            pageviews,visitors,histogram,pages,countries,referrers,utm_sources.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Number of results for list fields (1-1000).
+          schema:
+            type: integer
+        - name: timezone
+          in: query
+          description: A valid timezone such as Europe/Amsterdam.
+          schema:
+            type: string
+        - name: interval
+          in: query
+          description: Histogram interval.
+          schema:
+            type: string
+            enum:
+              - hour
+              - day
+              - week
+              - month
+              - year
+        - name: page
+          in: query
+          description: Filter by a page path, supports the * wildcard.
+          schema:
+            type: string
+        - name: country
+          in: query
+          description: Filter by ISO country code.
+          schema:
+            type: string
+        - name: referrer
+          in: query
+          description: Filter by referrer.
+          schema:
+            type: string
+        - name: utm_source
+          in: query
+          schema:
+            type: string
+        - name: utm_medium
+          in: query
+          schema:
+            type: string
+        - name: utm_campaign
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Aggregated statistics for the website.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stats'
+  /api/export/datapoints:
+    get:
+      operationId: exportDataPoints
+      tags:
+        - Export
+      summary: Export raw data points.
+      description: >-
+        Exports raw, per-event data points (pageviews or events) for a hostname
+        as CSV or JSON. Requires Api-Key and User-Id headers and a Business or
+        Enterprise plan.
+      parameters:
+        - name: version
+          in: query
+          required: true
+          schema:
+            type: integer
+            default: 6
+        - name: format
+          in: query
+          required: true
+          description: Response format.
+          schema:
+            type: string
+            enum:
+              - csv
+              - json
+        - name: hostname
+          in: query
+          required: true
+          description: Website hostname to export data from.
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: true
+          description: Data type to export.
+          schema:
+            type: string
+            enum:
+              - pageviews
+              - events
+        - name: start
+          in: query
+          required: true
+          description: Start date as YYYY-MM-DD or YYYY-MM-DDTHH for hourly granularity.
+          schema:
+            type: string
+        - name: end
+          in: query
+          required: true
+          description: End date as YYYY-MM-DD or YYYY-MM-DDTHH for hourly granularity.
+          schema:
+            type: string
+        - name: fields
+          in: query
+          required: true
+          description: >-
+            Comma-separated list of fields to include, e.g.
+            added_iso,hostname,path,referrer.
+          schema:
+            type: string
+        - name: timezone
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: robots
+          in: query
+          description: Whether to include robot traffic.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Raw data points in the requested format.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataPoint'
+            text/csv:
+              schema:
+                type: string
+  /api/websites:
+    get:
+      operationId: listWebsites
+      tags:
+        - Websites
+      summary: List websites.
+      description: >-
+        Returns all websites for the authenticated user. Available on all plans.
+        Requires Api-Key and User-Id headers.
+      responses:
+        '200':
+          description: A list of websites.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Website'
+  /api/websites/add:
+    post:
+      operationId: addWebsite
+      tags:
+        - Websites
+      summary: Add a website.
+      description: >-
+        Adds a new website to the dashboard. Requires a Business or Enterprise
+        plan and Api-Key and User-Id headers.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddWebsiteRequest'
+      responses:
+        '200':
+          description: The created website.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Website'
+  /events:
+    post:
+      operationId: collectEvent
+      tags:
+        - Events
+      summary: Collect a server-side event or pageview.
+      description: >-
+        Sends a custom event or pageview to Simple Analytics from the server
+        side. POST to https://queue.simpleanalyticscdn.com/events with a JSON
+        payload describing the event.
+      servers:
+        - url: https://queue.simpleanalyticscdn.com
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectEventRequest'
+      responses:
+        '201':
+          description: Event accepted.
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Api-Key
+      description: API key starting with sa_api_key_
+    UserId:
+      type: apiKey
+      in: header
+      name: User-Id
+      description: User identifier starting with sa_user_id_
+  schemas:
+    Stats:
+      type: object
+      properties:
+        ok:
+          type: boolean
+        pageviews:
+          type: integer
+        visitors:
+          type: integer
+        start:
+          type: string
+        end:
+          type: string
+        histogram:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+              pageviews:
+                type: integer
+              visitors:
+                type: integer
+        pages:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              pageviews:
+                type: integer
+              visitors:
+                type: integer
+        referrers:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              pageviews:
+                type: integer
+              visitors:
+                type: integer
+        countries:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              visitors:
+                type: integer
+        utm_sources:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              visitors:
+                type: integer
+    DataPoint:
+      type: object
+      properties:
+        added_iso:
+          type: string
+          format: date-time
+        hostname:
+          type: string
+        path:
+          type: string
+        referrer:
+          type: string
+        utm_source:
+          type: string
+        country_code:
+          type: string
+        browser_name:
+          type: string
+        os_name:
+          type: string
+        device_type:
+          type: string
+    Website:
+      type: object
+      properties:
+        hostname:
+          type: string
+        public:
+          type: boolean
+        timezone:
+          type: string
+        label:
+          type: string
+    AddWebsiteRequest:
+      type: object
+      required:
+        - hostname
+      properties:
+        hostname:
+          type: string
+          description: Domain name of the website to add.
+        timezone:
+          type: string
+          description: Timezone for the website. Defaults to UTC.
+        public:
+          type: boolean
+          description: Whether the website stats are public.
+        label:
+          type: string
+          description: A custom label for organizing the website.
+    CollectEventRequest:
+      type: object
+      required:
+        - type
+        - hostname
+      properties:
+        type:
+          type: string
+          description: Event type, e.g. event or pageview.
+          example: event
+        hostname:
+          type: string
+        event:
+          type: string
+          description: Custom event name (alphanumeric and underscores, max 200 chars).
+        path:
+          type: string
+        ua:
+          type: string
+          description: User agent string.
+        metadata:
+          type: object
+          additionalProperties: true
