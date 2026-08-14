@@ -3,23 +3,29 @@ url: https://raw.githubusercontent.com/api-evangelist/simpleanalytics/refs/heads
 name: Simple Analytics
 kind: company
 description: Simple Analytics is a privacy-first, cookieless web analytics platform
-  built in the EU. It collects no personal data and needs no cookie banner, while
-  exposing a REST API to pull aggregated dashboard stats, export raw data points
-  (page views and events), collect custom events server-side, and manage the
-  websites in an account.
+  built and hosted in the European Union by Simple Analytics B.V. in the Netherlands.
+  It collects no personal data, sets no cookies, stores no IP addresses and needs no
+  consent banner, while exposing a REST API surface to pull aggregated dashboard
+  statistics, export raw unsampled data points (page views and events) to warehouses
+  and BI tools, collect custom events server-side from backends and mobile apps, and
+  administer the websites in an account. Public websites can be read anonymously on
+  both read APIs, and a large first-party plugin library installs the tracking script
+  across common frameworks and CMSes.
 accessModel:
   pricing: freemium
   onboarding: self-serve
-  trial: false
+  trial: true
+  trial_days: 14
   try_now: true
   public: false
-  label: Freemium · Self-serve signup
+  label: Freemium · Self-serve signup · 14-day trial
   confidence: high
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
-  method: derived
+  - https://www.simpleanalytics.com/pricing
+  generated: '2026-08-13'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/simpleanalytics.png
 tags:
 - Analytics
@@ -27,65 +33,61 @@ tags:
 - Privacy
 - Cookieless
 - GDPR
+- Events
+- Data Export
+- Europe
 created: '2026-06-21'
-modified: '2026-06-21'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: simpleanalytics:simpleanalytics-events-api
   name: Simple Analytics Events API
-  description: The Events API from Simple Analytics — 1 operation(s) for events.
-  humanURL: https://docs.simpleanalytics.com/api/stats
-  baseURL: https://simpleanalytics.com
+  description: The Events API from Simple Analytics — server-side collection of custom
+    events and page views, with customer-defined metadata, posted unauthenticated to
+    the collection queue.
+  humanURL: https://docs.simpleanalytics.com/events/server-side
+  baseURL: https://queue.simpleanalyticscdn.com
   tags:
   - Events
   properties:
   - type: OpenAPI
     url: openapi/simpleanalytics-events-api-openapi.yml
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/api/stats
-  - type: APIReference
-    url: https://docs.simpleanalytics.com/api
-  - type: PostmanCollection
-    url: collections/simpleanalytics.postman_collection.json
-  - type: OpenCollection
-    url: collections/simpleanalytics.opencollection.json
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/api/export-data-points
+  - type: Overlay
+    url: overlays/simpleanalytics-events-api-overlay.yaml
   - type: Documentation
     url: https://docs.simpleanalytics.com/events/server-side
   - type: APIReference
     url: https://docs.simpleanalytics.com/events
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/api/admin
+  - type: PostmanCollection
+    url: collections/simpleanalytics-events-api.postman_collection.json
+  - type: OpenCollection
+    url: collections/simpleanalytics-events-api.opencollection.json
 - aid: simpleanalytics:simpleanalytics-export-api
   name: Simple Analytics Export API
-  description: The Export API from Simple Analytics — 1 operation(s) for export.
-  humanURL: https://docs.simpleanalytics.com/api/stats
+  description: The Export API from Simple Analytics — raw, unsampled data point export
+    (page views and events) as JSON or CSV over a date range, with per-field selection.
+  humanURL: https://docs.simpleanalytics.com/api/export-data-points
   baseURL: https://simpleanalytics.com
   tags:
   - Export
   properties:
   - type: OpenAPI
     url: openapi/simpleanalytics-export-api-openapi.yml
+  - type: Overlay
+    url: overlays/simpleanalytics-export-api-overlay.yaml
   - type: Documentation
-    url: https://docs.simpleanalytics.com/api/stats
+    url: https://docs.simpleanalytics.com/api/export-data-points
   - type: APIReference
     url: https://docs.simpleanalytics.com/api
   - type: PostmanCollection
-    url: collections/simpleanalytics.postman_collection.json
+    url: collections/simpleanalytics-export-api.postman_collection.json
   - type: OpenCollection
-    url: collections/simpleanalytics.opencollection.json
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/api/export-data-points
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/events/server-side
-  - type: APIReference
-    url: https://docs.simpleanalytics.com/events
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/api/admin
+    url: collections/simpleanalytics-export-api.opencollection.json
 - aid: simpleanalytics:simpleanalytics-stats-api
   name: Simple Analytics Stats API
-  description: The Stats API from Simple Analytics — 1 operation(s) for stats.
+  description: The Stats API from Simple Analytics — the aggregated dashboard statistics
+    (pageviews, visitors, histogram, pages, countries, referrers, UTM and device
+    breakdowns) as JSON for any tracked hostname.
   humanURL: https://docs.simpleanalytics.com/api/stats
   baseURL: https://simpleanalytics.com
   tags:
@@ -93,48 +95,38 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/simpleanalytics-stats-api-openapi.yml
+  - type: Overlay
+    url: overlays/simpleanalytics-stats-api-overlay.yaml
   - type: Documentation
     url: https://docs.simpleanalytics.com/api/stats
   - type: APIReference
     url: https://docs.simpleanalytics.com/api
   - type: PostmanCollection
-    url: collections/simpleanalytics.postman_collection.json
+    url: collections/simpleanalytics-stats-api.postman_collection.json
   - type: OpenCollection
-    url: collections/simpleanalytics.opencollection.json
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/api/export-data-points
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/events/server-side
-  - type: APIReference
-    url: https://docs.simpleanalytics.com/events
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/api/admin
+    url: collections/simpleanalytics-stats-api.opencollection.json
 - aid: simpleanalytics:simpleanalytics-websites-api
   name: Simple Analytics Websites API
-  description: The Websites API from Simple Analytics — 2 operation(s) for websites.
-  humanURL: https://docs.simpleanalytics.com/api/stats
+  description: The Websites API from Simple Analytics — the Admin surface for listing
+    the websites in an account and adding a new one with timezone, visibility and
+    label.
+  humanURL: https://docs.simpleanalytics.com/api/admin
   baseURL: https://simpleanalytics.com
   tags:
   - Websites
   properties:
   - type: OpenAPI
     url: openapi/simpleanalytics-websites-api-openapi.yml
+  - type: Overlay
+    url: overlays/simpleanalytics-websites-api-overlay.yaml
   - type: Documentation
-    url: https://docs.simpleanalytics.com/api/stats
+    url: https://docs.simpleanalytics.com/api/admin
   - type: APIReference
     url: https://docs.simpleanalytics.com/api
   - type: PostmanCollection
-    url: collections/simpleanalytics.postman_collection.json
+    url: collections/simpleanalytics-websites-api.postman_collection.json
   - type: OpenCollection
-    url: collections/simpleanalytics.opencollection.json
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/api/export-data-points
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/events/server-side
-  - type: APIReference
-    url: https://docs.simpleanalytics.com/events
-  - type: Documentation
-    url: https://docs.simpleanalytics.com/api/admin
+    url: collections/simpleanalytics-websites-api.opencollection.json
 common:
 - type: AgenticAccess
   url: agentic-access/simpleanalytics-agentic-access.yml
@@ -142,6 +134,40 @@ common:
   url: security/simpleanalytics-domain-security.yml
 - type: Authentication
   url: authentication/simpleanalytics-authentication.yml
+- type: Conventions
+  url: conventions/simpleanalytics-conventions.yml
+- type: ErrorCatalog
+  url: errors/simpleanalytics-problem-types.yml
+- type: DataModel
+  url: data-model/simpleanalytics-data-model.yml
+- type: Lifecycle
+  url: lifecycle/simpleanalytics-lifecycle.yml
+- type: StatusPage
+  url: https://status.simpleanalytics.com
+- type: ChangeLog
+  url: https://www.simpleanalytics.com/changelog
+- type: Roadmap
+  url: https://www.simpleanalytics.com/roadmap
+- type: Conformance
+  url: conformance/simpleanalytics-conformance.yml
+- type: Compliance
+  url: https://www.simpleanalytics.com/gdpr-compliance
+- type: TrustCenter
+  url: security/simpleanalytics-trust-center.yml
+- type: Packages
+  url: packages/simpleanalytics-packages.yml
+- type: SDKs
+  url: packages/simpleanalytics-packages.yml
+- type: Components
+  url: components/simpleanalytics-components.yml
+- type: Sandbox
+  url: sandbox/simpleanalytics-sandbox.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: MCPServer
+  url: mcp/simpleanalytics-mcp.yml
+- type: LLMsTxt
+  url: llms/simpleanalytics-llms.txt
 - url: https://simpleanalytics.com/blog
   type: Blog
 - type: GitHubOrganization
@@ -150,8 +176,26 @@ common:
   url: https://www.linkedin.com/company/simpleanalytics
 - type: Website
   url: https://www.simpleanalytics.com
+- type: DeveloperPortal
+  url: https://www.simpleanalytics.com/api
 - type: Documentation
   url: https://docs.simpleanalytics.com/api
+- type: APIReference
+  url: https://docs.simpleanalytics.com/api
+- type: GettingStarted
+  url: https://docs.simpleanalytics.com/
+- type: Support
+  url: https://docs.simpleanalytics.com/support
+- type: Pricing
+  url: https://www.simpleanalytics.com/pricing
+- type: SignUp
+  url: https://www.simpleanalytics.com/signup
+- type: Login
+  url: https://dashboard.simpleanalytics.com/login
+- type: TermsOfService
+  url: https://www.simpleanalytics.com/general-terms-and-conditions
+- type: PrivacyPolicy
+  url: https://www.simpleanalytics.com/privacy-policy
 - type: Plans
   url: plans/simpleanalytics-plans-pricing.yml
 - type: RateLimits
@@ -161,3 +205,8 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1
