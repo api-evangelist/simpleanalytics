@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Simple Analytics Events Export API",
+    "version": "6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export raw data points.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://simpleanalytics.com/api/export/datapoints",
+            "params": [
+              {
+                "name": "version",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format."
+              },
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "query",
+                "description": "Website hostname to export data from."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Data type to export."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start date as YYYY-MM-DD or YYYY-MM-DDTHH for hourly granularity."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End date as YYYY-MM-DD or YYYY-MM-DDTHH for hourly granularity."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include, e.g. added_iso,hostname,path,referrer."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "robots",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include robot traffic."
+              }
+            ]
+          },
+          "docs": "Exports raw, per-event data points (pageviews or events) for a hostname as CSV or JSON. Requires Api-Key and User-Id headers and a Business or Enterprise plan."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

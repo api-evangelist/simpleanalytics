@@ -1,0 +1,266 @@
+{
+  "item": [
+    {
+      "id": "e97f93a3-a420-4a4c-af66-a00fc7c47304",
+      "name": "Stats",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1abed0ca-beec-4772-8942-b8a8dca0e6ff",
+          "name": "Get aggregated statistics for a website.",
+          "request": {
+            "name": "Get aggregated statistics for a website.",
+            "description": {
+              "content": "Returns the aggregated statistics shown in the dashboard as JSON for the given hostname. Public websites can be queried without credentials; private websites require Api-Key and User-Id headers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "{{hostname}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "6",
+                  "description": "API version. Latest is 6."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start date in YYYY-MM-DD format. Defaults to one month ago."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End date in YYYY-MM-DD format. Defaults to today."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return, e.g. pageviews,visitors,histogram,pages,countries,referrers,utm_sources."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Number of results for list fields (1-1000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "A valid timezone such as Europe/Amsterdam."
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "<string>",
+                  "description": "Histogram interval."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<string>",
+                  "description": "Filter by a page path, supports the * wildcard."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Filter by ISO country code."
+                },
+                {
+                  "disabled": false,
+                  "key": "referrer",
+                  "value": "<string>",
+                  "description": "Filter by referrer."
+                },
+                {
+                  "disabled": false,
+                  "key": "utm_source",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "utm_medium",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "utm_campaign",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cbc7e3a0-02f9-4338-95be-c41d45699113",
+              "name": "Aggregated statistics for the website.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "{{hostname}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version",
+                      "value": "6"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "utm_source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "utm_medium",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "utm_campaign",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ok\": true,\n  \"pageviews\": 4846,\n  \"visitors\": 9624,\n  \"start\": \"string\",\n  \"end\": \"string\",\n  \"histogram\": [\n    {\n      \"date\": \"string\",\n      \"pageviews\": 1123,\n      \"visitors\": 3931\n    },\n    {\n      \"date\": \"string\",\n      \"pageviews\": 8043,\n      \"visitors\": 4543\n    }\n  ],\n  \"pages\": [\n    {\n      \"value\": \"string\",\n      \"pageviews\": 8333,\n      \"visitors\": 9182\n    },\n    {\n      \"value\": \"string\",\n      \"pageviews\": 5829,\n      \"visitors\": 5956\n    }\n  ],\n  \"referrers\": [\n    {\n      \"value\": \"string\",\n      \"pageviews\": 3470,\n      \"visitors\": 2099\n    },\n    {\n      \"value\": \"string\",\n      \"pageviews\": 8930,\n      \"visitors\": 3850\n    }\n  ],\n  \"countries\": [\n    {\n      \"value\": \"string\",\n      \"visitors\": 62\n    },\n    {\n      \"value\": \"string\",\n      \"visitors\": 3564\n    }\n  ],\n  \"utm_sources\": [\n    {\n      \"value\": \"string\",\n      \"visitors\": 830\n    },\n    {\n      \"value\": \"string\",\n      \"visitors\": 4614\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://simpleanalytics.com",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The website hostname, e.g. simpleanalytics.com",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "hostname"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "735679bf-2a6c-4b74-bbc8-e9cb452e76db",
+    "name": "Simple Analytics Events Stats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).\n\nContact Support:\n Name: Simple Analytics Support\n Email: support@simpleanalytics.com",
+      "type": "text/plain"
+    }
+  }
+}

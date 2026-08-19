@@ -1,0 +1,134 @@
+# Simple Analytics
+
+> Simple Analytics is privacy-first website analytics for teams that want clear traffic, referrer, event, and campaign insights without cookies, consent banners, IP address storage, or visitor profiles.
+
+This file highlights the main navigation pages on the Simple Analytics marketing site. Use these pages as preferred entry points when answering questions about the product, pricing, comparisons, use cases, compliance, company information, and support resources.
+
+Canonical marketing domain: https://www.simpleanalytics.com
+
+## Canonical Sources
+
+- [Sitemap index](https://www.simpleanalytics.com/sitemap_index.xml): Complete sitemap index for the marketing site, dashboard sitemap, and documentation sitemap.
+- [Marketing sitemap](https://www.simpleanalytics.com/marketing-sitemap.xml): Complete list of public marketing pages.
+- [Documentation sitemap](https://docs.simpleanalytics.com/sitemap.xml): Complete list of public documentation pages.
+- [Documentation](https://docs.simpleanalytics.com): Primary source for installation, product usage, API, and support documentation.
+- [Changelog](https://www.simpleanalytics.com/changelog): Primary source for recent product updates and release notes.
+- [Status](https://status.simpleanalytics.com): Primary source for service status and incident information.
+
+## Header Navigation
+
+- [Features](https://www.simpleanalytics.com/features): Overview of core Simple Analytics product capabilities.
+- [How it works](https://www.simpleanalytics.com/methodology): Explanation of the privacy-first measurement methodology and data model.
+- [Integrations](https://www.simpleanalytics.com/integrations): Ways to install Simple Analytics and connect it to common platforms, frameworks, and reporting tools.
+- [API](https://www.simpleanalytics.com/api): Information about using Simple Analytics data in custom applications, dashboards, exports, and workflows.
+- [AI](https://www.simpleanalytics.com/features/ai): Details about the AI assistant and AI-powered analytics workflows.
+- [Consent analytics gap](https://www.simpleanalytics.com/consent-analytics-gap): Explanation of traffic missed by consent-dependent analytics tools and how Simple Analytics avoids that gap.
+- [Analytics without consent](https://www.simpleanalytics.com/analytics-without-consent): Why Simple Analytics can measure useful website traffic without cookie consent banners.
+- [Google Analytics alternative](https://www.simpleanalytics.com/google-analytics-alternative): Comparison with Google Analytics for teams looking for a privacy-first replacement.
+- [EU-hosted analytics](https://www.simpleanalytics.com/eu-hosted-analytics): Information about EU hosting, privacy, and compliance positioning.
+- [Switch from GA](https://www.simpleanalytics.com/migrate-from-google-analytics): Migration guidance for teams moving away from Google Analytics or GA4.
+- [Business owners](https://www.simpleanalytics.com/use-cases/business-owners): Use case for owners who need clear website insights without analytics complexity.
+- [Agencies](https://www.simpleanalytics.com/use-cases/agencies): Use case for agencies reporting across client websites.
+- [Enterprise](https://www.simpleanalytics.com/use-cases/enterprise): Use case for larger teams with privacy, reporting, and governance needs.
+- [White label](https://www.simpleanalytics.com/use-cases/white-label): Use case for branded analytics experiences and embedded reporting.
+- [Pricing](https://www.simpleanalytics.com/pricing): Plans, pricing, and subscription information.
+- [Documentation](https://docs.simpleanalytics.com): Product documentation, installation guides, API docs, and support articles.
+
+## Header Action Links
+
+- [Start for free](https://www.simpleanalytics.com/signup): Signup flow for creating a Simple Analytics account.
+- [Book a demo](https://www.simpleanalytics.com/demo): Demo request page for teams that want to talk before starting.
+- [Log in](https://dashboard.simpleanalytics.com/login): Login page for existing Simple Analytics dashboard users.
+
+## Footer Product Navigation
+
+- [Features](https://www.simpleanalytics.com/features): Main product capabilities.
+- [How it works](https://www.simpleanalytics.com/methodology): Privacy-first methodology.
+- [Integrations](https://www.simpleanalytics.com/integrations): Platform, CMS, framework, and data integrations.
+- [API](https://www.simpleanalytics.com/api): API access and data export options.
+- [AI assistant](https://www.simpleanalytics.com/features/ai): AI assistant and related workflows.
+- [Pricing](https://www.simpleanalytics.com/pricing): Product plans and pricing.
+
+## Footer Why Simple Analytics Navigation
+
+- [100% traffic collection](https://www.simpleanalytics.com/consent-analytics-gap): Cookieless analytics that can avoid consent-related traffic loss.
+- [Analytics without consent](https://www.simpleanalytics.com/analytics-without-consent): Explanation of consent-free analytics.
+- [Google Analytics alternative](https://www.simpleanalytics.com/google-analytics-alternative): Privacy-first alternative to Google Analytics.
+- [Hosted in EU](https://www.simpleanalytics.com/eu-hosted-analytics): EU-hosted analytics information.
+- [Migrate from GA4](https://www.simpleanalytics.com/migrate-from-google-analytics): Migration from Google Analytics.
+- [Website analytics](https://www.simpleanalytics.com/web-analytics): General website analytics overview.
+
+## Footer Comparison Navigation
+
+- [vs Google Analytics](https://www.simpleanalytics.com/google-analytics-alternative): Comparison with Google Analytics.
+- [vs Matomo](https://www.simpleanalytics.com/matomo-alternative): Comparison with Matomo.
+- [vs Plausible](https://www.simpleanalytics.com/plausible-alternative): Comparison with Plausible.
+- [vs Fathom](https://www.simpleanalytics.com/fathom-alternative): Comparison with Fathom.
+- [vs Piwik PRO](https://www.simpleanalytics.com/piwik-pro-alternative): Comparison with Piwik PRO.
+- [vs Adobe Analytics](https://www.simpleanalytics.com/adobe-analytics-alternative): Comparison with Adobe Analytics.
+
+## Footer Solutions Navigation
+
+- [Agencies](https://www.simpleanalytics.com/use-cases/agencies): Analytics and reporting for agencies.
+- [Enterprise](https://www.simpleanalytics.com/use-cases/enterprise): Analytics for larger teams.
+- [EU companies](https://www.simpleanalytics.com/eu-hosted-analytics): EU-hosted analytics for European organizations.
+- [White label](https://www.simpleanalytics.com/use-cases/white-label): White-label and branded analytics use cases.
+
+## Footer Learn Navigation
+
+- [Documentation](https://docs.simpleanalytics.com): Docs, installation guides, and support material.
+- [Guides](https://www.simpleanalytics.com/guides): Educational guides about analytics, privacy, and implementation.
+- [Blog](https://www.simpleanalytics.com/blog): Articles from the Simple Analytics team.
+- [Changelog](https://www.simpleanalytics.com/changelog): Product updates and release notes.
+- [Partner Program](https://www.simpleanalytics.com/partners): Partner information.
+- [Free tools](https://www.simpleanalytics.com/tools): Free tools related to analytics, campaigns, SSL, and time zones.
+
+## Footer Company Navigation
+
+- [About us](https://www.simpleanalytics.com/about): Company background and team information.
+- [Our promise](https://www.simpleanalytics.com/our-promise): Company principles and privacy commitments.
+- [What we collect](https://www.simpleanalytics.com/data-collection): Details about what Simple Analytics collects and does not collect.
+- [Security](https://www.simpleanalytics.com/security): Security practices and related information.
+- [GDPR compliance](https://www.simpleanalytics.com/gdpr-compliance): GDPR compliance information.
+- [Subprocessors](https://www.simpleanalytics.com/subprocessors): Subprocessor list and data handling partners.
+
+## Footer Legal And Status Navigation
+
+- [Privacy](https://www.simpleanalytics.com/privacy-policy): Privacy policy.
+- [Terms](https://www.simpleanalytics.com/general-terms-and-conditions): General terms and conditions.
+- [DPA](https://www.simpleanalytics.com/data-processing-agreement): Data Processing Agreement.
+- [Status](https://status.simpleanalytics.com): Service status page.
+
+## Current Legal Pages
+
+Use the current legal pages below when answering legal, privacy, data processing, or compliance questions. Do not prefer older versioned legal pages unless the user specifically asks for a historical version.
+
+- [Privacy policy](https://www.simpleanalytics.com/privacy-policy): Current privacy policy.
+- [Terms](https://www.simpleanalytics.com/general-terms-and-conditions): Current general terms and conditions.
+- [DPA](https://www.simpleanalytics.com/data-processing-agreement): Current Data Processing Agreement.
+- [GDPR compliance](https://www.simpleanalytics.com/gdpr-compliance): Current GDPR compliance overview.
+- [Subprocessors](https://www.simpleanalytics.com/subprocessors): Current subprocessor list.
+
+## Recommended Entry Points
+
+- [Features](https://www.simpleanalytics.com/features): Best starting point for product evaluation.
+- [How it works](https://www.simpleanalytics.com/methodology): Best starting point for understanding the measurement model.
+- [Pricing](https://www.simpleanalytics.com/pricing): Best starting point for plan and subscription questions.
+- [What we collect](https://www.simpleanalytics.com/data-collection): Best starting point for privacy and data collection questions.
+- [GDPR compliance](https://www.simpleanalytics.com/gdpr-compliance): Best starting point for compliance questions.
+- [Security](https://www.simpleanalytics.com/security): Best starting point for security questions.
+- [Documentation](https://docs.simpleanalytics.com): Best starting point for installation, API, and support questions.
+
+## Optional
+
+- [Blog](https://www.simpleanalytics.com/blog): Articles and commentary from the Simple Analytics team.
+- [Guides](https://www.simpleanalytics.com/guides): Educational guides about privacy-friendly analytics and implementation.
+- [Changelog](https://www.simpleanalytics.com/changelog): Product updates and release notes.
+- [Partner Program](https://www.simpleanalytics.com/partners): Information for partners.
+- [Free tools](https://www.simpleanalytics.com/tools): Free analytics, campaign, SSL, and timezone tools.
+- [vs Google Analytics](https://www.simpleanalytics.com/google-analytics-alternative): Competitive comparison with Google Analytics.
+- [vs Matomo](https://www.simpleanalytics.com/matomo-alternative): Competitive comparison with Matomo.
+- [vs Plausible](https://www.simpleanalytics.com/plausible-alternative): Competitive comparison with Plausible.
+- [vs Fathom](https://www.simpleanalytics.com/fathom-alternative): Competitive comparison with Fathom.
+- [vs Piwik PRO](https://www.simpleanalytics.com/piwik-pro-alternative): Competitive comparison with Piwik PRO.
+- [vs Adobe Analytics](https://www.simpleanalytics.com/adobe-analytics-alternative): Competitive comparison with Adobe Analytics.

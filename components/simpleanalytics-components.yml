@@ -1,0 +1,108 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.simpleanalytics.com/embed-chart-on-your-site,
+  https://docs.simpleanalytics.com/script,
+  https://docs.simpleanalytics.com/script/v10,
+  https://docs.simpleanalytics.com/sri,
+  https://docs.simpleanalytics.com/csp,
+  https://docs.simpleanalytics.com/proxy,
+  https://docs.simpleanalytics.com/mini-websites
+description: >-
+  Client-side, embeddable surfaces Simple Analytics ships. These are distinct
+  from the framework packages in packages/ — they are drop-in browser artifacts
+  configured entirely through data-* attributes, with no build step and no API
+  key. The embeddable chart is the notable one: it renders a public website's
+  real stats on a third-party page without any credential.
+families:
+- name: Embedded stats chart
+  loader: https://scripts.simpleanalyticscdn.com/embed.js
+  type: script-tag + data attributes
+  auth_required: false
+  requires: The target hostname must be set to public in Simple Analytics.
+  docs: https://docs.simpleanalytics.com/embed-chart-on-your-site
+  mount: '<div id="chart" data-hostname="example.com" style="aspect-ratio: 2/1"></div>'
+  install: '<script async data-chart-selectors="#chart" src="https://scripts.simpleanalyticscdn.com/embed.js"></script>'
+  multiple_instances: true
+  multiple_instances_note: >-
+    One script tag drives many charts via a comma-separated
+    data-chart-selectors list; data-* settings on the script apply to all charts.
+  attributes:
+  - name: data-hostname
+    description: Website hostname whose public stats to render.
+  - name: data-start
+    description: Range start (YYYY-MM-DD or a relative placeholder).
+  - name: data-end
+    description: Range end.
+  - name: data-types
+    description: Which series to draw, e.g. visitors.
+  - name: data-pages
+    description: Comma-separated page paths to restrict the chart to.
+  - name: data-page-views-selector
+    description: Element to write the page-view total into.
+  - name: data-visitors-selector
+    description: Element to write the visitor total into.
+  - name: data-y-max
+    description: Fixed maximum for the Y axis.
+  - name: data-timezone
+    description: Time zone; falls back to the visitor's own when empty.
+  - name: data-border-width
+    description: Line width in pixels.
+  - name: data-text-color
+    description: Text colour; inherits from a paragraph when empty, so it follows dark mode.
+  - name: data-page-views-color
+    description: Page-views series colour.
+  - name: data-visitors-color
+    description: Visitors series colour.
+  - name: data-area-opacity
+    description: Opacity percentage of the area fill under each line.
+  - name: data-show-logo
+    description: Set false to hide the Simple Analytics logo.
+- name: Tracking script
+  loader: https://scripts.simpleanalyticscdn.com/latest.js
+  type: script-tag + data attributes
+  auth_required: false
+  docs: https://docs.simpleanalytics.com/script
+  install: '<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>'
+  generations:
+  - v10
+  - v9
+  - v8
+  note: >-
+    The collection component itself. Documented script generations exist but the
+    recommended embed floats to latest — see the CDN entries in
+    packages/simpleanalytics-packages.yml.
+  variants:
+  - name: SRI-pinned build
+    docs: https://docs.simpleanalytics.com/sri
+    note: A subresource-integrity version is published for CSP-strict sites.
+  - name: No-JavaScript pixel
+    docs: https://docs.simpleanalytics.com/without-javascript
+    note: An image-based fallback for pages that cannot run script.
+  - name: AMP component
+    docs: https://docs.simpleanalytics.com/collect-in-amp
+  - name: Self-hosted proxy
+    docs: https://docs.simpleanalytics.com/proxy
+    note: Serve the script and collection endpoint from the customer's own domain.
+- name: Mini websites
+  type: hosted dashboard surface
+  auth_required: false
+  docs: https://docs.simpleanalytics.com/mini-websites
+  note: >-
+    A shareable, public one-page dashboard for a hostname — the hosted read
+    surface a customer can hand to a client without an account. Public
+    dashboards are also what make the Stats and Export APIs answer anonymously.
+- name: AI assistant
+  type: hosted chat surface
+  url: https://www.simpleanalytics.com/features/ai
+  auth_required: false
+  note: >-
+    A natural-language chat window over analytics data, with public datasets
+    (simpleanalytics.com, Nomads, WIP) playable without an account. Hosted UI
+    only — it exposes no callable API and no MCP endpoint.
+not_components:
+  note: >-
+    The framework plugins (Next.js, React, Nuxt, Vue, Gatsby, Docusaurus,
+    Django, Rails, Laravel, WordPress, Swift) are packages, not UI components —
+    they only inject the tracking script. They are catalogued in
+    packages/simpleanalytics-packages.yml.

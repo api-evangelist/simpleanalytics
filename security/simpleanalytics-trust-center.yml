@@ -1,0 +1,109 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.simpleanalytics.com/security,
+  https://www.simpleanalytics.com/gdpr-compliance,
+  https://www.simpleanalytics.com/subprocessors,
+  https://www.simpleanalytics.com/data-processing-agreement,
+  https://www.simpleanalytics.com/data-collection,
+  https://www.simpleanalytics.com/privacy-policy
+description: >-
+  Simple Analytics runs no third-party trust portal (trust.simpleanalytics.com
+  does not resolve; /trust returns 404). Its trust surface is a first-party
+  Security page backed by a linked set of published compliance documents:
+  GDPR compliance, data collection detail, DPA, subprocessor list and privacy
+  policy. Recorded here as the provider's trust centre because the pages are
+  real, first-party and specific — not because a vendor portal exists.
+url: https://www.simpleanalytics.com/security
+http_status: 200
+checked: '2026-08-13'
+form: first-party security + compliance pages (no vendor trust portal)
+probes:
+- url: https://www.simpleanalytics.com/security
+  status: 200
+- url: https://www.simpleanalytics.com/gdpr-compliance
+  status: 200
+- url: https://www.simpleanalytics.com/subprocessors
+  status: 200
+- url: https://trust.simpleanalytics.com
+  status: 000
+  note: DNS does not resolve.
+- url: https://www.simpleanalytics.com/trust
+  status: 404
+certifications:
+- name: SOC 2 Type II
+  status: in-progress
+  held: false
+  evidence: >-
+    Security page states "SOC 2 (in progress) — We are working toward SOC 2
+    Type II certification" and lists SOC 2 compliance as an Enterprise-plan
+    capability on the pricing page. NOT a held certification.
+- name: ISO 27001
+  status: not-claimed
+  held: false
+- name: HIPAA
+  status: not-claimed
+  held: false
+- name: PCI DSS
+  status: not-applicable
+  held: false
+regulatory_posture:
+- regime: GDPR
+  claim: GDPR-compliant by design; processes no personal data
+  page: https://www.simpleanalytics.com/gdpr-compliance
+- regime: ePrivacy Directive / UK GDPR / PECR
+  claim: Satisfied because only non-personal data is processed
+  page: https://www.simpleanalytics.com/pricing
+- regime: EU data residency
+  claim: All analytics data stored and processed in the Netherlands; no transfer outside the EU
+  page: https://www.simpleanalytics.com/security
+controls_published:
+  data_minimisation:
+  - No cookies or persistent identifiers
+  - No cross-site tracking
+  - IP addresses discarded immediately, never stored
+  - No fingerprints or user-level profiling
+  - Metrics aggregated and not linked to individuals
+  infrastructure:
+  - Data stored in the Netherlands (EU)
+  - Hosted on Worldstream and Leaseweb infrastructure
+  - Encryption in transit (HTTPS) and at rest
+  - Simple Analytics controls the decryption keys
+  - Redundant infrastructure across multiple providers
+  - Regular backups and continuous security updates
+  access_control:
+  - Restricted production access limited to a small number of core team members
+  - MFA applied where applicable
+  - Logging and monitoring of system activity
+  - Vendor security review before adoption with periodic re-evaluation
+  retention:
+  - Retention set by subscription plan
+  - Data stored only while the account is active
+  - Data fully removed within 90 days of account deletion
+documents:
+- name: Data Processing Agreement
+  url: https://www.simpleanalytics.com/data-processing-agreement
+- name: Subprocessor list
+  url: https://www.simpleanalytics.com/subprocessors
+- name: What we collect
+  url: https://www.simpleanalytics.com/data-collection
+- name: Privacy policy
+  url: https://www.simpleanalytics.com/privacy-policy
+- name: General terms and conditions
+  url: https://www.simpleanalytics.com/general-terms-and-conditions
+security_contact:
+  vulnerability_disclosure_policy: false
+  bug_bounty: false
+  security_txt: false
+  channel: >-
+    General contact form only — the Security page directs security and
+    compliance questions to https://www.simpleanalytics.com/contact. No named
+    security address, no coordinated-disclosure policy, and
+    /.well-known/security.txt returns 404 on every host. This is the clearest
+    single gap in an otherwise strong privacy posture, and it is the provider's
+    to close.
+gaps:
+- No RFC 9116 security.txt on any host.
+- No published vulnerability disclosure or coordinated-disclosure policy.
+- No bug bounty programme (HackerOne / Bugcrowd / Intigriti all absent).
+- SOC 2 Type II is advertised as in progress but not held.

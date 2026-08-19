@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Simple Analytics Events API",
+    "version": "6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Collect a server-side event or pageview.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://simpleanalytics.com/events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a custom event or pageview to Simple Analytics from the server side. POST to https://queue.simpleanalyticscdn.com/events with a JSON payload describing the event."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

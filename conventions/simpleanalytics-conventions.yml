@@ -1,0 +1,197 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.simpleanalytics.com/api,
+  https://docs.simpleanalytics.com/api/authenticate,
+  https://docs.simpleanalytics.com/api/stats,
+  https://docs.simpleanalytics.com/api/export-data-points,
+  https://docs.simpleanalytics.com/api/admin,
+  https://docs.simpleanalytics.com/api/cors-jsonp,
+  https://docs.simpleanalytics.com/api/helpers,
+  https://docs.simpleanalytics.com/events/server-side,
+  plus live response headers observed on https://simpleanalytics.com 2026-08-13
+description: >-
+  Cross-cutting runtime semantics for the Simple Analytics Stats, Export, Admin
+  and event-collection APIs. This is a read-heavy analytics surface with two
+  write operations, and the conventions reflect that: no idempotency, no
+  pagination, no request-id tracing, and a versioning scheme carried in a query
+  parameter rather than the path.
+authentication:
+  style: api-key-header-pair
+  headers:
+  - name: Api-Key
+    prefix: sa_api_key_
+    required: >-
+      Always for the Admin API and the Export API; for the Stats API only when
+      the website is private.
+  - name: User-Id
+    prefix: sa_user_id_
+    format: sa_user_id_ + UUIDv4
+    required: Admin API only.
+  bearer_token: false
+  oauth2: false
+  note: >-
+    The event collection endpoint at queue.simpleanalyticscdn.com/events takes
+    no credentials at all — the hostname in the payload is the routing key.
+  docs: https://docs.simpleanalytics.com/api/authenticate
+  artifact: authentication/simpleanalytics-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No Idempotency-Key header, no idempotent-replay semantics, and no dedupe
+    guidance is published for either write path (addWebsite, collectEvent). A
+    retried event POST is counted again. Because idempotency genuinely is not
+    supported, no `Idempotency` pointer is wired in apis.yml.
+pagination:
+  supported: false
+  note: >-
+    Neither the Stats API nor the Export API paginates. The Stats API caps list
+    fields with `limit` (1-1000) instead; the Export API returns the whole
+    selected date range in one response, so range-splitting by `start`/`end` is
+    the only way to bound a payload.
+  parameters:
+  - name: limit
+    in: query
+    applies_to: getStats
+    range: 1-1000
+    note: A per-field result cap, not a page size — there is no cursor or offset.
+field_selection:
+  supported: true
+  parameters:
+  - name: fields
+    in: query
+    applies_to: getStats
+    required: true
+    note: >-
+      Comma-separated allow-list (pageviews, visitors, histogram, pages,
+      countries, referrers, utm_sources, utm_mediums, utm_campaigns,
+      utm_contents, utm_terms, browser_names, os_names, device_types,
+      seconds_on_page). Omitting it is a 400, not a default-everything.
+  - name: fields
+    in: query
+    applies_to: exportDataPoints
+    note: Selects which raw data point columns appear in the CSV/JSON export.
+filtering:
+  supported: true
+  applies_to: getStats
+  filters:
+  - page
+  - pages
+  - country
+  - referrer
+  - utm_source
+  - utm_medium
+  - utm_campaign
+  - utm_content
+  - utm_term
+  - browser_name
+  - os_name
+  - device_type
+  - metadata.<key>
+  note: metadata.<key> exact-match filtering was added in version 6.
+metadata:
+  supported: true
+  note: >-
+    Customer-defined key/value metadata can be attached to events server-side
+    and to page views, then filtered and exported as metadata.<key> columns.
+  docs: https://docs.simpleanalytics.com/metadata
+date_handling:
+  parameters:
+  - start
+  - end
+  - timezone
+  format: 'YYYY-MM-DD'
+  placeholders:
+  - today
+  - yesterday
+  - today-1d
+  - today-30d
+  defaults:
+    stats_start: one month ago
+    stats_end: today
+    stats_timezone: the website's configured time zone
+    export_timezone: UTC
+  note: >-
+    Relative date placeholders are a real published convenience — an agent can
+    say start=today-30d&end=yesterday without doing calendar math.
+  docs: https://docs.simpleanalytics.com/api/helpers
+versioning:
+  scheme: query-parameter
+  parameter: version
+  current: '6'
+  supported_versions:
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - '6'
+  evidence: >-
+    Observed verbatim in a live Stats API response 2026-08-13: "You can specify
+    versions by adding 'version=6' to your URL (valid versions: 1, 2, 3, 4, 5, 6)".
+  note: >-
+    All six versions still answer. No version has been sunset, and no deprecation
+    signal is emitted for the older ones.
+  artifact: lifecycle/simpleanalytics-lifecycle.yml
+error_envelope:
+  consistent: false
+  shapes:
+  - '{ok: false, error: string}  — Stats API'
+  - '{status: int, message: string}  — Stats API unknown-hostname 404'
+  - '{success: false, error: string}  — Admin API'
+  rfc9457: false
+  note: >-
+    Three envelopes across four APIs; auth failures return 400, not 401. See
+    errors/simpleanalytics-problem-types.yml for the probed catalog.
+  artifact: errors/simpleanalytics-problem-types.yml
+response_introspection:
+  self_describing: true
+  note: >-
+    Stats API responses carry `ok`, a `docs` URL, a `generated_in_ms` timing
+    field, and `__`-prefixed INFO keys that explain every field inline. Disable
+    with info=false. This is unusually agent-friendly and worth preserving.
+  example_keys:
+  - ok
+  - docs
+  - info
+  - version
+  - timezone
+  - generated_in_ms
+request_tracing:
+  request_id_header: null
+  note: No X-Request-Id or correlation header is returned. Observed 2026-08-13.
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After headers were present on live
+    responses, and no numeric limits are documented. See
+    rate-limits/simpleanalytics-rate-limits.yml.
+  artifact: rate-limits/simpleanalytics-rate-limits.yml
+cors_and_jsonp:
+  cors: true
+  access_control_allow_origin: '*'
+  jsonp: true
+  jsonp_parameter: callback
+  evidence: 'access-control-allow-origin: * observed on a live Stats API response 2026-08-13'
+  docs: https://docs.simpleanalytics.com/api/cors-jsonp
+content_types:
+  request: application/json
+  response:
+  - application/json
+  - text/csv
+  note: The Export API selects between JSON and CSV with the required format query parameter.
+public_data:
+  note: >-
+    Websites marked public can be read anonymously on BOTH the Stats API and the
+    Export API — verified 2026-08-13 by exporting raw data points for
+    simpleanalytics.com with no credentials. This is a deliberate product
+    property (data portability), not a misconfiguration, but it means an agent
+    can evaluate the API before holding a key.
+plan_gating:
+  note: >-
+    exportDataPoints and addWebsite require a Business or Enterprise plan on
+    private accounts; the docs warn that calling addWebsite auto-upgrades the
+    account. Treat addWebsite as a billable, consequential write.
+  artifact: plans/simpleanalytics-plans-pricing.yml

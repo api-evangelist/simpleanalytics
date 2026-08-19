@@ -1,0 +1,186 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/simpleanalytics-stats-api-openapi.yml,
+  openapi/simpleanalytics-export-api-openapi.yml,
+  openapi/simpleanalytics-websites-api-openapi.yml,
+  openapi/simpleanalytics-events-api-openapi.yml, enriched from
+  https://docs.simpleanalytics.com/api/export-data-points and
+  https://docs.simpleanalytics.com/api/stats
+description: >-
+  Entity graph for the Simple Analytics API surface. The model is deliberately
+  shallow, which is the point of the product: there is no visitor entity, no
+  session entity and no user profile, because none is collected. The root key
+  is a hostname (a Website), everything hangs off it, and the deepest object is
+  an individual DataPoint that is never linked to a person.
+key_convention:
+  primary_key: hostname
+  note: >-
+    Websites are addressed by hostname, not by an opaque id — the Stats API path
+    is literally /{hostname}.json. The only UUID in the model is the account's
+    User-Id (sa_user_id_ + UUIDv4), used for authentication, not as a data
+    relationship. A DataPoint carries a `uuid` field that the docs explicitly
+    warn "is not always unique", so it is not a primary key.
+entities:
+- name: Website
+  schema: openapi/simpleanalytics-websites-api-openapi.yml#/components/schemas/Website
+  identified_by: hostname
+  operations:
+  - listWebsites
+  - addWebsite
+  fields:
+  - hostname
+  - public
+  - timezone
+  - label
+  note: >-
+    `public` is load-bearing: when true, both the Stats API and the Export API
+    answer anonymously for that hostname. `label` is a free-string customer
+    annotation shown on the websites overview.
+- name: Stats
+  schema: openapi/simpleanalytics-stats-api-openapi.yml#/components/schemas/Stats
+  identified_by: hostname + date range + fields
+  operations:
+  - getStats
+  note: >-
+    An aggregate projection, not a stored record. Composed on demand from
+    DataPoints for a hostname over start..end, shaped by the required `fields`
+    allow-list.
+  aggregate_fields:
+  - pageviews
+  - visitors
+  - histogram
+  - pages
+  - countries
+  - referrers
+  - utm_sources
+  - utm_mediums
+  - utm_campaigns
+  - utm_contents
+  - utm_terms
+  - browser_names
+  - os_names
+  - device_types
+  - seconds_on_page
+- name: DataPoint
+  schema: openapi/simpleanalytics-export-api-openapi.yml#/components/schemas/DataPoint
+  identified_by: added_iso + hostname (no stable unique id)
+  operations:
+  - exportDataPoints
+  discriminator: type (pageview | event)
+  fields:
+  - added_unix
+  - added_iso
+  - hostname
+  - hostname_original
+  - path
+  - query
+  - is_unique
+  - is_robot
+  - document_referrer
+  - utm_source
+  - utm_medium
+  - utm_campaign
+  - utm_content
+  - utm_term
+  - scrolled_percentage
+  - duration_seconds
+  - viewport_width
+  - viewport_height
+  - screen_width
+  - screen_height
+  - user_agent
+  - device_type
+  - country_code
+  - browser_name
+  - browser_version
+  - os_name
+  - os_version
+  - lang_region
+  - lang_language
+  - uuid
+  - session_id
+  - metadata.*
+  note: >-
+    The atomic record. `session_id` is a legacy field name retained for backward
+    compatibility — the current term is page-load ID, it groups only within one
+    page load, is never stored on the device, and does not survive a reload.
+    There is deliberately no visitor identifier.
+- name: Event
+  schema: openapi/simpleanalytics-events-api-openapi.yml#/components/schemas/CollectEventRequest
+  identified_by: hostname + event name + timestamp
+  operations:
+  - collectEvent
+  fields:
+  - type
+  - hostname
+  - event
+  - path
+  - ua
+  - unique
+  - https
+  - referrer
+  - viewport_width
+  - viewport_height
+  - screen_width
+  - screen_height
+  - language
+  - timezone
+  - source
+  - campaign
+  - medium
+  - content
+  - metadata
+  note: >-
+    A write-side entity only. Once accepted it becomes a DataPoint with
+    type=event; there is no read-by-id endpoint for a single event.
+- name: Metadata
+  identified_by: customer-defined key
+  note: >-
+    Customer-defined key/value pairs attached to an Event or page view. Exported
+    as metadata.<key> columns and filterable as metadata.<key> from version 6.
+    Schema-less by design — the customer owns the vocabulary.
+- name: Account
+  identified_by: User-Id (sa_user_id_ + UUIDv4)
+  note: >-
+    Not exposed as a readable resource. It exists only as an authentication
+    principal in the User-Id header and as the owner of the Website list.
+relationships:
+- from: Account
+  to: Website
+  type: has_many
+  via: authenticated User-Id header on listWebsites
+- from: Website
+  to: DataPoint
+  type: has_many
+  via: hostname
+- from: Website
+  to: Stats
+  type: has_one
+  via: hostname (computed per date range)
+- from: Stats
+  to: DataPoint
+  type: aggregates
+  via: hostname + start/end window
+- from: Event
+  to: DataPoint
+  type: becomes
+  via: 'type: event on ingest'
+- from: DataPoint
+  to: Metadata
+  type: has_many
+  via: metadata.<key>
+- from: Event
+  to: Metadata
+  type: has_many
+  via: metadata object in the POST body
+absent_by_design:
+- entity: Visitor
+  reason: No cookies, no identifiers, no fingerprints — no visitor is ever materialised.
+- entity: Session
+  reason: >-
+    Replaced by a page-load ID scoped to a single page load. The `session_id`
+    export column is a legacy name, not a session entity.
+- entity: User profile
+  reason: No user-level tracking or profiling is performed.
+render: null

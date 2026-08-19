@@ -1,0 +1,131 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.simpleanalytics.com/security,
+  https://www.simpleanalytics.com/gdpr-compliance,
+  https://www.simpleanalytics.com/subprocessors,
+  https://www.simpleanalytics.com/data-processing-agreement,
+  https://docs.simpleanalytics.com/compliance,
+  https://docs.simpleanalytics.com/api/authenticate,
+  https://docs.simpleanalytics.com/api/cors-jsonp,
+  plus derivation from openapi/ and live response headers observed 2026-08-13
+description: >-
+  Which cross-cutting standards the Simple Analytics API surface conforms to.
+  The provider's compliance posture is regulatory (EU privacy law) rather than
+  technical: GDPR/ePrivacy conformance is the product thesis and is documented
+  in depth, while API-level standards conformance is thin — no OAuth, no OIDC,
+  no RFC 9457, no pagination or idempotency convention.
+standards:
+- id: gdpr
+  conforms: true
+  evidence: >-
+    Dedicated GDPR compliance page plus docs/compliance; no personal data
+    collected, no cookies, IP addresses discarded on ingest, all processing in
+    the Netherlands. Published at https://www.simpleanalytics.com/gdpr-compliance
+- id: eprivacy-directive
+  conforms: true
+  evidence: >-
+    Pricing FAQ states the product satisfies the ePrivacy Directive, UK GDPR and
+    PECR because it processes only non-personal data.
+- id: dpa-available
+  conforms: true
+  evidence: https://www.simpleanalytics.com/data-processing-agreement
+- id: subprocessor-disclosure
+  conforms: true
+  evidence: >-
+    Named subprocessor list published at
+    https://www.simpleanalytics.com/subprocessors; infrastructure named as
+    Worldstream and Leaseweb, both EU.
+- id: soc2-type-ii
+  conforms: false
+  status: in-progress
+  evidence: >-
+    https://www.simpleanalytics.com/security states "SOC 2 (in progress) — We
+    are working toward SOC 2 Type II certification". Recorded as NOT conformant;
+    an in-progress certification is not a certification.
+- id: iso-27001
+  conforms: false
+  evidence: No ISO 27001 claim found on the security, compliance or trust pages.
+- id: hipaa
+  conforms: false
+  evidence: No HIPAA claim published.
+- id: pci-dss
+  conforms: false
+  evidence: Not applicable; Simple Analytics does not process cardholder data through its API.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No oauth2 securityScheme in any OpenAPI and no OAuth documentation. Auth is
+    an Api-Key / User-Id header pair.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every host.
+- id: saml-sso
+  conforms: true
+  scope: dashboard-only
+  evidence: >-
+    Okta and Microsoft Entra SAML SSO are documented for dashboard sign-in
+    (docs.simpleanalytics.com/okta-saml-sso, /microsoft-entra-saml-sso). This is
+    an application-level control, not an API authentication mechanism.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors are plain JSON in three different vendor envelopes; no
+    application/problem+json was returned on any probed error. See
+    errors/simpleanalytics-problem-types.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on all four hosts probed 2026-08-13.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header observed; no deprecation policy published.
+- id: rfc6750-bearer-token
+  conforms: false
+  evidence: Credentials travel in custom Api-Key and User-Id headers, not Authorization Bearer.
+- id: cors
+  conforms: true
+  evidence: 'access-control-allow-origin: * observed on a live Stats API response 2026-08-13.'
+- id: jsonp
+  conforms: true
+  evidence: >-
+    `callback` query parameter documented and supported at
+    https://docs.simpleanalytics.com/api/cors-jsonp
+- id: json-api
+  conforms: false
+  evidence: Responses are vendor-shaped JSON, not JSON:API documents.
+- id: openapi
+  conforms: true
+  scope: catalog-harvested
+  evidence: >-
+    OpenAPI 3.0.1 documents exist in this repo under openapi/, harvested and
+    refined by API Evangelist. Simple Analytics does not publish an OpenAPI of
+    its own — probes of /openapi.json, /openapi.yaml, /swagger.json and
+    /api-docs on every host returned 404 (the sole 200,
+    simpleanalytics.com/api/openapi.json, is the dashboard SPA catch-all
+    returning text/html, not a spec).
+- id: pagination
+  conforms: false
+  evidence: No cursor, offset or page parameters; `limit` is a per-field result cap.
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key header or replay semantics on either write path.
+- id: tls-1-3
+  conforms: true
+  evidence: security/simpleanalytics-domain-security.yml — TLSv1.3 on all probed hosts.
+- id: hsts
+  conforms: partial
+  evidence: >-
+    HSTS enabled on simpleanalytics.com and www.simpleanalytics.com
+    (max-age 15552000) but NOT on docs.simpleanalytics.com.
+- id: dnssec
+  conforms: false
+  evidence: security/simpleanalytics-domain-security.yml — DNSSEC not enabled on simpleanalytics.com.
+- id: dmarc
+  conforms: true
+  evidence: DMARC policy p=reject on simpleanalytics.com.
+summary:
+  conformant: 10
+  non_conformant: 13
+  in_progress: 1
+  compliance_program_published: true
+  certifications_held: []

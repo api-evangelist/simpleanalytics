@@ -1,0 +1,105 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  https://docs.simpleanalytics.com/api/stats,
+  https://docs.simpleanalytics.com/events/server-side,
+  https://www.simpleanalytics.com/features/ai,
+  plus live unauthenticated calls to https://simpleanalytics.com made 2026-08-13
+description: >-
+  Simple Analytics ships no test mode, no sandbox account and no test
+  credentials — there is no test-vs-live key split, no fixture generator and no
+  time simulation. What it ships instead is stronger for evaluation and weaker
+  for safe writes: real production endpoints that answer anonymously against
+  the company's OWN public dataset, so both read APIs can be exercised end to
+  end before anyone holds a key. Every value below was published by the
+  provider or observed live; nothing is invented.
+test_mode:
+  exists: false
+  key_prefixes:
+    live_api_key: sa_api_key_
+    live_user_id: sa_user_id_
+    test_equivalent: null
+  note: >-
+    One credential class only. There is no sa_test_ prefix and no mode toggle,
+    so any authenticated call is a production call against real data.
+public_read_surface:
+  description: >-
+    Websites marked public answer both read APIs with no credentials. Simple
+    Analytics sets its own hostname public, which the docs use as the worked
+    example, so this doubles as an anonymous evaluation environment.
+  dataset: simpleanalytics.com
+  endpoints:
+  - name: Stats API on public data
+    url: https://simpleanalytics.com/simpleanalytics.com.json?version=6&fields=histogram&start=yesterday&end=today
+    auth: none
+    verified_status: 200
+    verified: '2026-08-13'
+    source: https://docs.simpleanalytics.com/api/stats
+    note: >-
+      The docs link this exact URL as "See the live response". Response carries
+      ok, docs, version, timezone and generated_in_ms, plus inline __-prefixed
+      INFO keys describing each field — a self-documenting first call.
+  - name: Export API on public data
+    url: https://simpleanalytics.com/api/export/datapoints?version=6&format=json&hostname=simpleanalytics.com&type=pageviews&start=2026-08-01&end=2026-08-02
+    auth: none
+    verified_status: 200
+    verified: '2026-08-13'
+    note: >-
+      Raw data points export answered anonymously for the public hostname.
+      Observed directly; the docs describe the endpoint but do not advertise it
+      as a demo.
+write_testing:
+  description: >-
+    The collection endpoint is the one place the provider publishes an explicit
+    test procedure, but it writes to production. Use a hostname you control.
+  endpoint: https://queue.simpleanalyticscdn.com/events
+  auth: none
+  docs: https://docs.simpleanalytics.com/events/server-side
+  published_test_payloads:
+  - name: Test event
+    body: |
+      {"type": "event", "hostname": "mobile-app.example.com", "event": "consent",
+       "metadata": {"button": "yes"}, "ua": "Your User Agent"}
+  - name: Test pageview
+    body: |
+      {"type": "pageview", "hostname": "mobile-app.example.com", "event": "pageview",
+       "path": "/my-page-name", "ua": "Your User Agent"}
+  warnings:
+  - >-
+    There is no discard/test hostname. Anything POSTed lands in the dashboard of
+    whichever hostname is named, within minutes.
+  - >-
+    Default library user agents (python-requests/…, curl/…, node-fetch/…,
+    axios/…) are classified as robots and the datapoint is dropped. The docs
+    recommend a custom agent such as "ServerSide/1.0 (+https://www.yourwebsite.com/)".
+  - >-
+    Writes are not idempotent — a retried POST is counted twice. See
+    conventions/simpleanalytics-conventions.yml.
+  - >-
+    addWebsite is NOT safe to try: the Admin API docs state the account is
+    upgraded automatically to a Business plan when the endpoint is called.
+interactive_consoles:
+- name: AI assistant demo on public data
+  url: https://www.simpleanalytics.com/features/ai
+  auth: none
+  verified_status: 200
+  note: >-
+    Public datasets (simpleanalytics.com, Nomads, WIP) can be queried in natural
+    language without an account. A chat UI, not a callable API.
+- name: Export URL generator
+  url: https://docs.simpleanalytics.com/api/helpers
+  auth: account required
+  note: >-
+    The docs recommend generating Export API URLs from the dashboard's export
+    interface rather than hand-building them.
+absent:
+- test API keys
+- test/live mode switch
+- sandbox or demo account
+- seeded fixture data
+- time simulation / test clocks
+- request replay or inspection console
+free_tier_note: >-
+  In place of a sandbox, the provider offers a free-forever plan and a 14-day
+  full-feature trial with no credit card. See
+  plans/simpleanalytics-plans-pricing.yml.

@@ -1,0 +1,75 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: >-
+  openapi/simpleanalytics-stats-api-openapi.yml,
+  openapi/simpleanalytics-export-api-openapi.yml,
+  openapi/simpleanalytics-websites-api-openapi.yml,
+  openapi/simpleanalytics-events-api-openapi.yml
+description: >-
+  Simple Analytics publishes no MCP server. Probes of mcp.simpleanalytics.com
+  (DNS does not resolve), simpleanalytics.com/mcp (404),
+  www.simpleanalytics.com/mcp (404), docs.simpleanalytics.com/mcp (404) and
+  docs.simpleanalytics.com/api/mcp (404) all missed, the docs sitemap carries no
+  MCP page, and the provider-published llms.txt names no MCP endpoint. The
+  product does ship an LLM surface — an AI assistant that answers questions
+  about your analytics at www.simpleanalytics.com/features/ai — but it is a
+  hosted chat UI, not an MCP server an external agent can call. The tools below
+  are a CANDIDATE mapping derived from the real OpenAPI operations, offered as
+  a starting point for a server that does not yet exist.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+  note: >-
+    mode is none because no server exists to reach. auth records what a server
+    WOULD need: the Api-Key / User-Id header pair documented at
+    docs.simpleanalytics.com/api/authenticate. Nothing here is an endpoint claim.
+probes:
+- url: https://mcp.simpleanalytics.com/mcp
+  status: 000
+  note: DNS does not resolve.
+- url: https://simpleanalytics.com/mcp
+  status: 404
+- url: https://www.simpleanalytics.com/mcp
+  status: 404
+- url: https://docs.simpleanalytics.com/mcp
+  status: 404
+- url: https://docs.simpleanalytics.com/api/mcp
+  status: 404
+tools:
+- name: get_stats
+  description: >-
+    Get aggregated dashboard statistics for a website hostname — pageviews,
+    visitors, histogram, pages, countries, referrers, UTM breakdowns, browser
+    and OS names, device types and seconds on page — for a date range.
+  source_operation: openapi/simpleanalytics-stats-api-openapi.yml#getStats
+  read_only: true
+- name: export_data_points
+  description: >-
+    Export raw, unsampled data points (page views and events) for a hostname as
+    JSON or CSV over a date range, with per-field selection.
+  source_operation: openapi/simpleanalytics-export-api-openapi.yml#exportDataPoints
+  read_only: true
+- name: list_websites
+  description: List every website in the authenticated account.
+  source_operation: openapi/simpleanalytics-websites-api-openapi.yml#listWebsites
+  read_only: true
+- name: add_website
+  description: >-
+    Add a website to the dashboard, optionally setting timezone, public/private
+    visibility and a label. Requires a Business or Enterprise plan and upgrades
+    the account automatically when called.
+  source_operation: openapi/simpleanalytics-websites-api-openapi.yml#addWebsite
+  read_only: false
+  consequence: write
+- name: collect_event
+  description: >-
+    Send a server-side event or pageview to the collection queue at
+    queue.simpleanalyticscdn.com/events.
+  source_operation: openapi/simpleanalytics-events-api-openapi.yml#collectEvent
+  read_only: false
+  consequence: write

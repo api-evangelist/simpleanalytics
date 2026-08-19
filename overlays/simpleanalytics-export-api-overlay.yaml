@@ -1,0 +1,26 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Simple Analytics Events Export API
+  version: 1.0.0
+extends: openapi/simpleanalytics-export-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: openapi/simpleanalytics-export-api-openapi.yml + repo artifacts (no provider content invented)
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: simpleanalytics
+    x-apievangelist-artifacts:
+      authentication: authentication/simpleanalytics-authentication.yml
+      conventions: conventions/simpleanalytics-conventions.yml
+      errors: errors/simpleanalytics-problem-types.yml
+      lifecycle: lifecycle/simpleanalytics-lifecycle.yml
+      rate_limits: rate-limits/simpleanalytics-rate-limits.yml
+      plans: plans/simpleanalytics-plans-pricing.yml
+      data_model: data-model/simpleanalytics-data-model.yml
+- target: $.paths['/api/export/datapoints'].get
+  update:
+    x-artifact-errors: errors/simpleanalytics-problem-types.yml
+    x-agentic-access:
+      action-class: connected
+      consequence: read

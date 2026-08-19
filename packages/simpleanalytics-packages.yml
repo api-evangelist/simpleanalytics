@@ -1,0 +1,241 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  Registry metadata endpoints (registry.npmjs.org, pypi.org, rubygems.org,
+  packagist.org, proxy.golang.org, api.wordpress.org) plus the
+  github.com/simpleanalytics organization repository listing and
+  https://docs.simpleanalytics.com/install-on-other-platforms
+description: >-
+  First-party Simple Analytics client libraries. Simple Analytics ships no
+  generic REST SDK for the Stats / Export / Admin APIs — every first-party
+  package is a script-installation plugin for a specific framework or CMS that
+  injects the tracking script and (in some cases) wraps the server-side events
+  endpoint. Versions and publish dates below were read from each registry's
+  metadata endpoint on 2026-08-13.
+notes: >-
+  The framework plugin line has a wide currency spread: the Next.js, React,
+  Nuxt, Django and WordPress packages are current (2025-2026), while Gatsby,
+  Gridsome, VuePress, Docusaurus, Rails and the CloudQuery source have not
+  shipped a release in 2-7 years. Third-party packages that carry the Simple
+  Analytics name but are published by unrelated maintainers are listed with
+  official false so they are not mistaken for vendor libraries.
+packages:
+- language: javascript
+  registry: npm
+  name: '@simpleanalytics/next'
+  url: https://www.npmjs.com/package/@simpleanalytics/next
+  install: npm install @simpleanalytics/next
+  official: true
+  version: 1.1.1
+  published: '2026-01-12'
+  repository: https://github.com/simpleanalytics/next
+  note: Simple Analytics component for Next.js.
+- language: javascript
+  registry: npm
+  name: '@simpleanalytics/react'
+  url: https://www.npmjs.com/package/@simpleanalytics/react
+  install: npm install @simpleanalytics/react
+  official: true
+  version: 0.0.1
+  published: '2025-11-07'
+  note: Simple Analytics for React applications; still at a 0.0.x initial release.
+- language: javascript
+  registry: npm
+  name: '@simpleanalytics/nuxt'
+  url: https://www.npmjs.com/package/@simpleanalytics/nuxt
+  install: npm install @simpleanalytics/nuxt
+  official: true
+  version: 2.0.0
+  published: '2025-11-07'
+  repository: https://github.com/simpleanalytics/simpleanalytics-nuxt
+- language: javascript
+  registry: npm
+  name: '@simpleanalytics/common'
+  url: https://www.npmjs.com/package/@simpleanalytics/common
+  install: npm install @simpleanalytics/common
+  official: true
+  version: 2.2.2
+  published: '2026-03-19'
+  repository: https://github.com/simpleanalytics/common
+  note: Shared internal helpers used by the other first-party packages, not a consumer SDK.
+- language: javascript
+  registry: npm
+  name: simple-analytics-vue
+  url: https://www.npmjs.com/package/simple-analytics-vue
+  install: npm install simple-analytics-vue
+  official: true
+  version: 3.1.0
+  published: '2025-09-01'
+  repository: https://github.com/simpleanalytics/vue-plugin
+- language: javascript
+  registry: npm
+  name: gatsby-plugin-simple-analytics
+  url: https://www.npmjs.com/package/gatsby-plugin-simple-analytics
+  install: npm install gatsby-plugin-simple-analytics
+  official: true
+  version: 1.0.4
+  published: '2021-05-25'
+  repository: https://github.com/simpleanalytics/gatsby-plugin
+  note: No release since 2021.
+- language: javascript
+  registry: npm
+  name: docusaurus-plugin-simple-analytics
+  url: https://www.npmjs.com/package/docusaurus-plugin-simple-analytics
+  install: npm install docusaurus-plugin-simple-analytics
+  official: true
+  version: 1.1.8
+  published: '2023-06-27'
+  repository: https://github.com/simpleanalytics/docusaurus-plugin
+- language: javascript
+  registry: npm
+  name: vuepress-plugin-simple-analytics
+  url: https://www.npmjs.com/package/vuepress-plugin-simple-analytics
+  install: npm install vuepress-plugin-simple-analytics
+  official: true
+  version: 1.0.3
+  published: '2020-04-11'
+  repository: https://github.com/simpleanalytics/vuepress-plugin
+  note: No release since 2020.
+- language: javascript
+  registry: npm
+  name: gridsome-plugin-simple-analytics
+  url: https://www.npmjs.com/package/gridsome-plugin-simple-analytics
+  install: npm install gridsome-plugin-simple-analytics
+  official: true
+  version: 1.1.0
+  published: '2019-07-09'
+  repository: https://github.com/simpleanalytics/gridsome-plugin
+  note: No release since 2019.
+- language: python
+  registry: pypi
+  name: simpleanalytics
+  url: https://pypi.org/project/simpleanalytics/
+  install: pip install simpleanalytics
+  official: true
+  version: 1.0.8
+  published: '2026-04-02'
+  repository: https://github.com/simpleanalytics/django-plugin
+  note: Django plugin that injects the tracking script; not a REST API client.
+- language: ruby
+  registry: rubygems
+  name: simple_analytics_rails
+  url: https://rubygems.org/gems/simple_analytics_rails
+  install: gem install simple_analytics_rails
+  official: true
+  version: 0.3.1
+  published: '2021-11-05'
+  repository: https://github.com/simpleanalytics/rubyonrails-plugin
+  note: No release since 2021.
+- language: php
+  registry: packagist
+  name: simpleanalytics/laravel-package
+  url: https://packagist.org/packages/simpleanalytics/laravel-package
+  install: composer require simpleanalytics/laravel-package
+  official: true
+  version: 1.1.3
+  published: '2024-02-15'
+  repository: https://github.com/simpleanalytics/laravel-package
+- language: php
+  registry: wordpress.org
+  name: simpleanalytics
+  url: https://wordpress.org/plugins/simpleanalytics/
+  install: Install "Simple Analytics" from the WordPress plugin directory
+  official: true
+  version: '1.109'
+  published: '2026-07-20'
+  repository: https://github.com/simpleanalytics/wordpress-plugin
+  note: >-
+    Published to the WordPress.org plugin directory by the simpleanalytics
+    profile, not to Packagist.
+- language: go
+  registry: pkg.go.dev
+  name: github.com/simpleanalytics/cq-source-simpleanalytics
+  url: https://pkg.go.dev/github.com/simpleanalytics/cq-source-simpleanalytics
+  install: go get github.com/simpleanalytics/cq-source-simpleanalytics
+  official: true
+  version: v1.0.0
+  published: '2023-02-03'
+  repository: https://github.com/simpleanalytics/cq-source-simpleanalytics
+  note: >-
+    CloudQuery source plugin that reads the Export API into a data warehouse.
+    Read from proxy.golang.org/.../@latest; no release since 2023.
+- language: swift
+  registry: swiftpm
+  name: simpleanalytics/swift-package
+  url: https://github.com/simpleanalytics/swift-package
+  install: 'Swift Package Manager: https://github.com/simpleanalytics/swift-package'
+  official: true
+  version: 0.4.1
+  published: '2025-01-04'
+  repository: https://github.com/simpleanalytics/swift-package
+  note: >-
+    Swift Package Manager resolves from the git tag; there is no package
+    registry metadata endpoint, so version/published were read from the GitHub
+    release (tag 0.4.1).
+- language: javascript
+  registry: cdn
+  name: scripts.simpleanalyticscdn.com/latest.js
+  url: https://scripts.simpleanalyticscdn.com/latest.js
+  install: <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+  official: true
+  version: null
+  published: null
+  note: >-
+    The primary distribution is an unpinned CDN script tag, not a registry
+    package, so there is no metadata endpoint to query and a consumer cannot
+    tell which build they receive. Documented script generations exist
+    (docs.simpleanalytics.com/script/v10, /v9, /v8) but the recommended
+    embed floats to latest. Checked 2026-08-13, HTTP 200.
+- language: javascript
+  registry: cdn
+  name: scripts.simpleanalyticscdn.com/embed.js
+  url: https://scripts.simpleanalyticscdn.com/embed.js
+  install: <script async data-chart-selectors="#chart" src="https://scripts.simpleanalyticscdn.com/embed.js"></script>
+  official: true
+  version: null
+  published: null
+  note: >-
+    Embeddable public-stats chart loader. Unpinned CDN distribution with no
+    registry metadata endpoint; version is unknowable to a consumer.
+third_party:
+- language: javascript
+  registry: npm
+  name: astro-simpleanalytics-plugin
+  url: https://www.npmjs.com/package/astro-simpleanalytics-plugin
+  official: false
+  version: 0.4.0
+  published: '2026-06-24'
+  note: >-
+    Sole npm maintainer is viorelmocanu and the published repository field
+    points at ViorelMocanu/astro-simpleanalytics-plugin; Simple Analytics
+    mirrors it at github.com/simpleanalytics/astro-plugin but does not publish
+    the package.
+- language: python
+  registry: pypi
+  name: django-simple-analytics
+  url: https://pypi.org/project/django-simple-analytics/
+  official: false
+  version: 1.3.0
+  published: '2026-02-23'
+  note: Community package by mrswats; not the vendor Django plugin (that is `simpleanalytics` on PyPI).
+- language: ruby
+  registry: rubygems
+  name: simple_analytics
+  url: https://rubygems.org/gems/simple_analytics
+  official: false
+  version: 0.0.2
+  published: null
+  note: >-
+    Unrelated gem published from github.com/Djo/simple_analytics. Version read
+    from the RubyGems API; release date not exposed on the gem endpoint and not
+    guessed here.
+counts:
+  official: 17
+  third_party: 3
+  languages:
+  - javascript
+  - python
+  - ruby
+  - php
+  - go
+  - swift

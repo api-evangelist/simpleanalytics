@@ -1,0 +1,223 @@
+{
+  "item": [
+    {
+      "id": "bace7d73-ab49-4516-93b5-bd929874b243",
+      "name": "Export",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5dc75d6c-5a40-4efa-a271-89e02f668daf",
+          "name": "Export raw data points.",
+          "request": {
+            "name": "Export raw data points.",
+            "description": {
+              "content": "Exports raw, per-event data points (pageviews or events) for a hostname as CSV or JSON. Requires Api-Key and User-Id headers and a Business or Enterprise plan.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "export",
+                "datapoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "6",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "(Required) Response format."
+                },
+                {
+                  "disabled": false,
+                  "key": "hostname",
+                  "value": "<string>",
+                  "description": "(Required) Website hostname to export data from."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) Data type to export."
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "(Required) Start date as YYYY-MM-DD or YYYY-MM-DDTHH for hourly granularity."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "(Required) End date as YYYY-MM-DD or YYYY-MM-DDTHH for hourly granularity."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of fields to include, e.g. added_iso,hostname,path,referrer."
+                },
+                {
+                  "disabled": false,
+                  "key": "timezone",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "robots",
+                  "value": "<boolean>",
+                  "description": "Whether to include robot traffic."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06c52add-0d01-4434-bef7-f9576c706ba2",
+              "name": "Raw data points in the requested format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "export",
+                    "datapoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version",
+                      "value": "6"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "hostname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "timezone",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "robots",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"added_iso\": \"1957-10-17T06:13:50.551Z\",\n    \"hostname\": \"string\",\n    \"path\": \"string\",\n    \"referrer\": \"string\",\n    \"utm_source\": \"string\",\n    \"country_code\": \"string\",\n    \"browser_name\": \"string\",\n    \"os_name\": \"string\",\n    \"device_type\": \"string\"\n  },\n  {\n    \"added_iso\": \"1976-11-06T15:13:52.934Z\",\n    \"hostname\": \"string\",\n    \"path\": \"string\",\n    \"referrer\": \"string\",\n    \"utm_source\": \"string\",\n    \"country_code\": \"string\",\n    \"browser_name\": \"string\",\n    \"os_name\": \"string\",\n    \"device_type\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://simpleanalytics.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c5370725-3fb8-4750-a305-78f8d4235a1f",
+    "name": "Simple Analytics Events Export API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).\n\nContact Support:\n Name: Simple Analytics Support\n Email: support@simpleanalytics.com",
+      "type": "text/plain"
+    }
+  }
+}

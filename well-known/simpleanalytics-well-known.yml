@@ -1,0 +1,90 @@
+generated: '2026-08-13'
+method: probed
+source: Direct HTTPS probes of every apis.yml baseURL host, every OpenAPI servers[] host, and the docs host
+description: >-
+  Simple Analytics serves no /.well-known/ discovery surface. Every canonical
+  path was probed on every host this provider controls and every one returned
+  404 — including /.well-known/security.txt, which is why no SecurityTxt or
+  WellKnown pointer is wired in apis.yml. A recorded absence, not a gap in the
+  probe.
+result: none
+hosts:
+- host: https://simpleanalytics.com
+  role: Stats / Export / Admin API base
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /security.txt
+    status: 404
+- host: https://www.simpleanalytics.com
+  role: Marketing site / canonical website
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /security.txt
+    status: 404
+- host: https://docs.simpleanalytics.com
+  role: Documentation host
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://queue.simpleanalyticscdn.com
+  role: Server-side event collection endpoint (OpenAPI servers[])
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+adjacent_discovery_found:
+- path: /llms.txt
+  host: https://www.simpleanalytics.com
+  status: 200
+  note: >-
+    Not a /.well-known/ document, but a real machine-readable discovery file the
+    provider publishes. Saved verbatim to llms/simpleanalytics-llms.txt.

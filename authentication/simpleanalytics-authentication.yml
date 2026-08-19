@@ -1,23 +1,125 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/simpleanalytics-openapi.yml
+generated: '2026-08-13'
+method: searched
+docs: https://docs.simpleanalytics.com/api/authenticate
+source: >-
+  https://docs.simpleanalytics.com/api/authenticate,
+  https://docs.simpleanalytics.com/api/stats,
+  https://docs.simpleanalytics.com/api/admin,
+  https://docs.simpleanalytics.com/events/server-side, derived baseline from
+  openapi/simpleanalytics-events-api-openapi.yml,
+  openapi/simpleanalytics-export-api-openapi.yml,
+  openapi/simpleanalytics-stats-api-openapi.yml,
+  openapi/simpleanalytics-websites-api-openapi.yml, plus live probes of
+  https://simpleanalytics.com 2026-08-13
+description: >-
+  Simple Analytics authenticates with a pair of custom headers, not a bearer
+  token. There is no OAuth, no OIDC, no token exchange and no refresh — an
+  Api-Key identifies the account and a User-Id identifies the principal, and
+  Admin API calls need both. Two surfaces need no credential at all: public
+  websites on the read APIs, and the server-side event collection endpoint.
 summary:
   types:
   - apiKey
   api_key_in:
   - header
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  bearer: false
+  rotation_documented: false
+  scopes: false
 schemes:
 - name: ApiKeyAuth
   type: apiKey
   in: header
   parameter: Api-Key
-  description: API key starting with sa_api_key_
+  prefix: sa_api_key_
+  description: >-
+    Account API key created in account settings. Required for the Admin API and
+    for the Stats and Export APIs when the website is private.
+  example_shape: sa_api_key_ followed by an opaque token
   sources:
-  - openapi/simpleanalytics-openapi.yml
+  - https://docs.simpleanalytics.com/api/authenticate
+  - openapi/simpleanalytics-events-api-openapi.yml
+  - openapi/simpleanalytics-export-api-openapi.yml
+  - openapi/simpleanalytics-stats-api-openapi.yml
+  - openapi/simpleanalytics-websites-api-openapi.yml
 - name: UserId
   type: apiKey
   in: header
   parameter: User-Id
-  description: User identifier starting with sa_user_id_
+  prefix: sa_user_id_
+  format: sa_user_id_ + UUIDv4
+  description: >-
+    User identifier shown in account settings. Required alongside Api-Key on
+    Admin API calls; a non-UUIDv4 value returns HTTP 400 "Invalid user id
+    format, it should be a UUIDv4".
   sources:
-  - openapi/simpleanalytics-openapi.yml
+  - https://docs.simpleanalytics.com/api/authenticate
+  - https://docs.simpleanalytics.com/api/admin
+  - openapi/simpleanalytics-events-api-openapi.yml
+  - openapi/simpleanalytics-export-api-openapi.yml
+  - openapi/simpleanalytics-stats-api-openapi.yml
+  - openapi/simpleanalytics-websites-api-openapi.yml
+requirements_by_operation:
+- operation: getStats
+  required:
+  - Api-Key
+  conditional: true
+  note: Public websites answer with no credentials; private websites require Api-Key.
+- operation: exportDataPoints
+  required:
+  - Api-Key
+  conditional: true
+  note: >-
+    Verified answering anonymously for a public hostname on 2026-08-13. Private
+    hostnames require Api-Key and a Business or Enterprise plan.
+- operation: listWebsites
+  required:
+  - Api-Key
+  - User-Id
+  conditional: false
+- operation: addWebsite
+  required:
+  - Api-Key
+  - User-Id
+  conditional: false
+  note: Also requires a Business or Enterprise plan; calling it auto-upgrades the account.
+- operation: collectEvent
+  required: []
+  conditional: false
+  note: >-
+    queue.simpleanalyticscdn.com/events accepts unauthenticated POSTs — the
+    hostname in the payload is the routing key. There is no write credential.
+example_request: |
+  curl "https://simpleanalytics.com/api/websites" \
+    -H 'Content-Type: application/json' \
+    -H 'Api-Key: sa_api_key_REDACTED_EXAMPLE' \
+    -H 'User-Id: sa_user_id_00000000-0000-0000-0000-000000000000'
+failure_modes:
+  note: >-
+    Authentication failures return HTTP 400, not 401 — an agent's standard
+    "401 means re-auth" heuristic will not fire here. Probed 2026-08-13.
+  observed:
+  - status: 400
+    body: '{"success": false, "error": "No Api-Key found, specify via header"}'
+  - status: 400
+    body: '{"success": false, "error": "No User-Id defined"}'
+  - status: 400
+    body: '{"success": false, "error": "Invalid user id format, it should be a UUIDv4"}'
+  artifact: errors/simpleanalytics-problem-types.yml
+key_management:
+  create: Account settings in the dashboard
+  rotate: Not documented
+  revoke: Not documented
+  expiry: No documented TTL
+  scopes: None — a key is all-or-nothing for the account
+  note: >-
+    No scoping, rotation or expiry story is published, so a leaked Api-Key plus
+    User-Id grants full account read and the ability to add billable websites
+    until it is manually replaced.
+dashboard_sso:
+  note: >-
+    Okta and Microsoft Entra SAML SSO are available for dashboard sign-in
+    (docs.simpleanalytics.com/okta-saml-sso, /microsoft-entra-saml-sso). This
+    governs human login only; it issues no API credential.

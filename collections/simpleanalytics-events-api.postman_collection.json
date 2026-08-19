@@ -1,0 +1,146 @@
+{
+  "item": [
+    {
+      "id": "8664f38f-a2c3-43fb-8d67-099ad6400dc2",
+      "name": "Events",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "52cc1840-bbfc-4474-9a2f-ba7c7e75be4f",
+          "name": "Collect a server-side event or pageview.",
+          "request": {
+            "name": "Collect a server-side event or pageview.",
+            "description": {
+              "content": "Sends a custom event or pageview to Simple Analytics from the server side. POST to https://queue.simpleanalyticscdn.com/events with a JSON payload describing the event.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "events"
+              ],
+              "host": [
+                "queue",
+                "simpleanalyticscdn",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"hostname\": \"<string>\",\n  \"event\": \"<string>\",\n  \"path\": \"<string>\",\n  \"ua\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 6232\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b714d8a3-f9b5-4414-860f-fa2577f44e5c",
+              "name": "Event accepted.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "queue",
+                    "simpleanalyticscdn",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"event\",\n  \"hostname\": \"<string>\",\n  \"event\": \"<string>\",\n  \"path\": \"<string>\",\n  \"ua\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"string\",\n    \"key_1\": 4237.972286744585,\n    \"key_2\": 7631\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://simpleanalytics.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c3c1f727-79c8-46c4-9e83-fdc5c773d78d",
+    "name": "Simple Analytics Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).\n\nContact Support:\n Name: Simple Analytics Support\n Email: support@simpleanalytics.com",
+      "type": "text/plain"
+    }
+  }
+}

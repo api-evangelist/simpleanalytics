@@ -1,0 +1,127 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live unauthenticated requests to https://simpleanalytics.com (2026-08-13),
+  cross-read against https://docs.simpleanalytics.com/api,
+  https://docs.simpleanalytics.com/api/authenticate and
+  https://docs.simpleanalytics.com/api/admin
+format: vendor-json
+rfc9457: false
+description: >-
+  Simple Analytics publishes no error reference page and declares no 4xx/5xx
+  responses in any harvested OpenAPI, so this catalog was built by making real
+  unauthenticated calls and recording exactly what came back. Errors are plain
+  JSON, not application/problem+json, and there is no stable machine error
+  code — the discriminator is a human-readable `error` string. THREE DIFFERENT
+  ENVELOPES are in production across the three APIs, which is the single most
+  agent-hostile property of this surface: a client cannot write one error
+  handler.
+envelopes:
+- name: stats-info-envelope
+  used_by:
+  - openapi/simpleanalytics-stats-api-openapi.yml#getStats
+  shape:
+    ok: boolean
+    error: string
+  example: |
+    {"ok": false, "error": "Fields param is required to select the fields you need. Comma seperated. ..."}
+  note: >-
+    The Stats API wraps every response, success or failure, in a self-describing
+    envelope with an `ok` boolean and `__`-prefixed INFO keys explaining each
+    field. Suppress the INFO keys with info=false.
+- name: router-404-envelope
+  used_by:
+  - openapi/simpleanalytics-stats-api-openapi.yml#getStats
+  shape:
+    status: integer
+    message: string
+  example: |
+    {"status": 404, "message": "/thishostdoesnotexist-xyz123.json"}
+  note: >-
+    Returned when the requested hostname is not a known Simple Analytics
+    website. Different shape from the ok/error envelope on the same endpoint.
+- name: admin-success-envelope
+  used_by:
+  - openapi/simpleanalytics-websites-api-openapi.yml#listWebsites
+  - openapi/simpleanalytics-websites-api-openapi.yml#addWebsite
+  shape:
+    success: boolean
+    error: string
+  example: |
+    {"success": false, "error": "No Api-Key found, specify via header"}
+problems:
+- status: 400
+  title: Missing API key
+  detail: No Api-Key found, specify via header
+  envelope: admin-success-envelope
+  source_operation: openapi/simpleanalytics-websites-api-openapi.yml#listWebsites
+  observed: '2026-08-13'
+  evidence:
+    request: GET https://simpleanalytics.com/api/websites (no headers)
+    http_status: 400
+  remediation: >-
+    Send an Api-Key header whose value starts with sa_api_key_, created in
+    account settings. See https://docs.simpleanalytics.com/api/authenticate.
+- status: 400
+  title: Missing user ID
+  detail: No User-Id defined
+  envelope: admin-success-envelope
+  source_operation: openapi/simpleanalytics-websites-api-openapi.yml#listWebsites
+  observed: '2026-08-13'
+  evidence:
+    request: GET https://simpleanalytics.com/api/websites with Api-Key only
+    http_status: 400
+  remediation: >-
+    Admin API calls need BOTH Api-Key and User-Id headers. The User-Id starts
+    with sa_user_id_ and is shown in account settings.
+- status: 400
+  title: Malformed user ID
+  detail: Invalid user id format, it should be a UUIDv4
+  envelope: admin-success-envelope
+  source_operation: openapi/simpleanalytics-websites-api-openapi.yml#listWebsites
+  observed: '2026-08-13'
+  evidence:
+    request: GET https://simpleanalytics.com/api/websites with Api-Key and a non-UUID User-Id
+    http_status: 400
+  remediation: >-
+    The portion of the User-Id after the sa_user_id_ prefix must be a UUIDv4.
+- status: 400
+  title: Missing required fields parameter
+  detail: >-
+    Fields param is required to select the fields you need. Comma seperated.
+    Available fields include pageviews, visitors, histogram, pages, countries,
+    referrers, utm_sources and others.
+  envelope: stats-info-envelope
+  source_operation: openapi/simpleanalytics-stats-api-openapi.yml#getStats
+  observed: '2026-08-13'
+  evidence:
+    request: GET https://simpleanalytics.com/google.com.json?version=6
+    http_status: 400
+  remediation: >-
+    Always pass fields= with a comma-separated list. Note the response spells
+    the word "seperated" — do not pattern-match on the message text.
+- status: 404
+  title: Unknown website
+  detail: The path of the request, echoed back
+  envelope: router-404-envelope
+  source_operation: openapi/simpleanalytics-stats-api-openapi.yml#getStats
+  observed: '2026-08-13'
+  evidence:
+    request: GET https://simpleanalytics.com/thishostdoesnotexist-xyz123.json?version=6
+    http_status: 404
+  remediation: >-
+    Confirm the hostname is tracked in the account via
+    GET /api/websites (listWebsites) before querying its stats.
+gaps:
+- >-
+  No documented error reference page exists anywhere in the docs sitemap; the
+  entries above are the ones reachable without credentials.
+- >-
+  No 401/403 was observed — authentication failures on the Admin API surface as
+  400, not 401, which breaks the conventional agent retry heuristic.
+- >-
+  429 / rate-limit exhaustion behaviour is undocumented and was not provoked;
+  see rate-limits/simpleanalytics-rate-limits.yml.
+- >-
+  Authenticated-only failures (plan gating on exportDataPoints and addWebsite,
+  which require Business or Enterprise) could not be observed anonymously.

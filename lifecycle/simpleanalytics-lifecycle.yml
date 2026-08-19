@@ -1,0 +1,91 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://docs.simpleanalytics.com/api/stats,
+  https://docs.simpleanalytics.com/api/export-data-points,
+  https://www.simpleanalytics.com/changelog,
+  https://status.simpleanalytics.com,
+  https://www.simpleanalytics.com/roadmap,
+  plus a live Stats API response observed 2026-08-13
+description: >-
+  Versioning, deprecation and operational-transparency posture for the Simple
+  Analytics APIs. Versioning is explicit and well behaved — six numbered
+  versions, all still answering — but there is no published deprecation policy,
+  no Sunset/Deprecation header support, and no SLA outside Enterprise contracts.
+versioning:
+  scheme: query-parameter
+  parameter: version
+  current: '6'
+  supported:
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - '6'
+  docs: https://docs.simpleanalytics.com/api/stats
+  evidence: >-
+    A live Stats API response on 2026-08-13 states: "You are using the latest
+    version. You can specify versions by adding 'version=6' to your URL (valid
+    versions: 1, 2, 3, 4, 5, 6)".
+  note: >-
+    Version 6 added the `hour` histogram interval and metadata.<key> filtering.
+    Older versions have not been withdrawn.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation or sunset policy is published anywhere in the docs sitemap,
+    and no RFC 8594 Sunset or Deprecation header was observed on live responses.
+    The one documented deprecation-shaped change is a field rename in the Export
+    API, handled by keeping the old name forever rather than by policy.
+  field_renames:
+  - from: session_id
+    to: page_load_id
+    status: >-
+      session_id remains available in exports for backward compatibility; the
+      docs say existing exports, queries and integrations will not break.
+    docs: https://docs.simpleanalytics.com/api/export-data-points
+deprecated_operations: []
+status_page:
+  url: https://status.simpleanalytics.com
+  http_status: 200
+  checked: '2026-08-13'
+  source_repo: https://github.com/simpleanalytics/status
+  machine_readable_feed: false
+  note: >-
+    A real hosted status page, self-published from the provider's own `status`
+    repository. No JSON/RSS incident feed was found.
+changelog:
+  url: https://www.simpleanalytics.com/changelog
+  artifact: changelog/simpleanalytics-changelog.yml
+roadmap:
+  url: https://www.simpleanalytics.com/roadmap
+  http_status: 200
+  checked: '2026-08-13'
+  form: public feature-request forum (Discourse) served under the marketing domain
+  note: >-
+    Not a dated shipping roadmap — it is a public voting board where customers
+    file requests and the team replies. Several open threads are API-facing
+    ("Extend API to support new team members", "API to add Custom Annotation",
+    "Support type=append on the HTTP endpoint").
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No public SLA. "Enterprise SLA" is listed as an Enterprise-plan capability on
+    https://www.simpleanalytics.com/pricing, so any commitment is contractual
+    rather than published.
+data_retention:
+  free_plan_history: 1 month
+  paid_plan_history: set by subscription plan
+  account_deletion: data fully removed within 90 days of account deletion
+  source: https://www.simpleanalytics.com/security
+custom_endpoints:
+  note: >-
+    The Admin API docs state that custom endpoints are built for larger
+    customers on request, meaning the effective surface for some accounts is
+    wider than the published contract.
+  source: https://docs.simpleanalytics.com/api/admin

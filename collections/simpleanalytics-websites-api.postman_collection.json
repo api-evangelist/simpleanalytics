@@ -1,0 +1,232 @@
+{
+  "item": [
+    {
+      "id": "c20b47e1-0dd3-4e95-935a-5636ad06ac78",
+      "name": "Websites",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1bda19e-dd7d-49d3-a91a-a4fd08c71dc0",
+          "name": "List websites.",
+          "request": {
+            "name": "List websites.",
+            "description": {
+              "content": "Returns all websites for the authenticated user. Available on all plans. Requires Api-Key and User-Id headers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "websites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a288a27a-aa28-4ec6-8150-c442fa36ca67",
+              "name": "A list of websites.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "websites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"hostname\": \"string\",\n    \"public\": true,\n    \"timezone\": \"string\",\n    \"label\": \"string\"\n  },\n  {\n    \"hostname\": \"string\",\n    \"public\": false,\n    \"timezone\": \"string\",\n    \"label\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9128fa6f-c808-4ebc-a42d-e76034bdf32e",
+          "name": "Add a website.",
+          "request": {
+            "name": "Add a website.",
+            "description": {
+              "content": "Adds a new website to the dashboard. Requires a Business or Enterprise plan and Api-Key and User-Id headers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "websites",
+                "add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hostname\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"public\": \"<boolean>\",\n  \"label\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3e83516f-f1f2-4696-ad19-d2378e77e077",
+              "name": "The created website.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "websites",
+                    "add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"hostname\": \"<string>\",\n  \"timezone\": \"<string>\",\n  \"public\": \"<boolean>\",\n  \"label\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"hostname\": \"string\",\n  \"public\": true,\n  \"timezone\": \"string\",\n  \"label\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://simpleanalytics.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cb6acd5b-a81d-4218-bb88-3bcba665df1e",
+    "name": "Simple Analytics Events Websites API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).\n\nContact Support:\n Name: Simple Analytics Support\n Email: support@simpleanalytics.com",
+      "type": "text/plain"
+    }
+  }
+}

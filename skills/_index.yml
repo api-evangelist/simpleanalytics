@@ -1,0 +1,68 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  openapi/simpleanalytics-stats-api-openapi.yml,
+  openapi/simpleanalytics-export-api-openapi.yml,
+  openapi/simpleanalytics-websites-api-openapi.yml,
+  openapi/simpleanalytics-events-api-openapi.yml,
+  conventions/simpleanalytics-conventions.yml,
+  errors/simpleanalytics-problem-types.yml, plus the provider documentation at
+  https://docs.simpleanalytics.com/api
+description: >-
+  Packaged Agent Skills for the Simple Analytics API surface. Every skill is
+  grounded in an operationId that exists in this repo's OpenAPI — no invented
+  endpoints, no invented parameters — and carries the runtime rules an agent
+  needs but the spec does not state: which calls work anonymously, which call
+  changes the bill, and which write is silently dropped.
+provider: Simple Analytics
+providerId: simpleanalytics
+skills:
+- name: simpleanalytics-pull-website-stats
+  file: simpleanalytics-pull-website-stats.md
+  api: Simple Analytics Stats API
+  operations:
+  - getStats
+  consequence: read
+  auth: conditional
+  summary: >-
+    Aggregated dashboard statistics for a hostname over a date range. Works with
+    no credentials when the website is public.
+- name: simpleanalytics-export-raw-data-points
+  file: simpleanalytics-export-raw-data-points.md
+  api: Simple Analytics Export API
+  operations:
+  - exportDataPoints
+  consequence: read
+  auth: conditional
+  summary: >-
+    Raw, unsampled page views and events as JSON or CSV. Requires a Business or
+    Enterprise plan on private accounts; answers anonymously for public ones.
+- name: simpleanalytics-manage-websites
+  file: simpleanalytics-manage-websites.md
+  api: Simple Analytics Admin API
+  operations:
+  - listWebsites
+  - addWebsite
+  consequence: write
+  auth: required
+  human_in_the_loop: recommended
+  summary: >-
+    List account websites, and add one. addWebsite auto-upgrades the account to
+    a paid plan, so it is a purchasing action and should be confirmed.
+- name: simpleanalytics-collect-server-side-events
+  file: simpleanalytics-collect-server-side-events.md
+  api: Simple Analytics Events API
+  operations:
+  - collectEvent
+  consequence: write
+  auth: none
+  summary: >-
+    Send server-side events and page views with custom metadata. No credentials,
+    no idempotency, and bot-looking user agents are dropped without an error.
+cross_cutting_rules:
+- Authentication failures return HTTP 400, not 401.
+- Three different error envelopes are in production across these four APIs.
+- No idempotency support on either write path — verify, never blindly retry.
+- No pagination anywhere; bound results with start/end or the Stats `limit` cap.
+- 'Always send version=6; versions 1 through 5 still answer with older shapes.'
+- No rate-limit headers are returned and no numeric limits are published.

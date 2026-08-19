@@ -1,0 +1,52 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.simpleanalytics.com/changelog
+description: >-
+  Simple Analytics publishes a dated product changelog at
+  www.simpleanalytics.com/changelog. The page returns HTTP 200 but renders its
+  entries client-side — the served HTML contains only the shell and the
+  changelog CSS class, no entry text — and there is no JSON payload, RSS or
+  Atom feed behind it. Entries are therefore recorded as unreadable rather than
+  invented.
+url: https://www.simpleanalytics.com/changelog
+http_status: 200
+checked: '2026-08-13'
+machine_readable: false
+scheme: dated product changelog (marketing site)
+entries: []
+entries_readable: false
+entries_unreadable_reason: js-rendered
+probes:
+- url: https://www.simpleanalytics.com/changelog
+  status: 200
+  note: HTML shell only; entry list is hydrated client-side.
+- url: https://www.simpleanalytics.com/changelog/_payload.json
+  status: 404
+- url: https://www.simpleanalytics.com/api/changelog
+  status: 404
+- url: https://www.simpleanalytics.com/changelog/rss.xml
+  status: 404
+- url: https://www.simpleanalytics.com/changelog/feed.xml
+  status: 404
+- url: https://www.simpleanalytics.com/rss.xml
+  status: 404
+api_version_history:
+  note: >-
+    The API itself carries its own version history, independent of the product
+    changelog. A live Stats API response on 2026-08-13 reports valid versions
+    1 through 6, with 6 current.
+  current: '6'
+  documented_changes:
+  - version: '6'
+    change: '`hour` added as a histogram interval'
+    source: https://docs.simpleanalytics.com/api/stats
+  - version: '6'
+    change: 'metadata.<key> exact-match filtering and query parameter added'
+    source: https://docs.simpleanalytics.com/api/stats
+  artifact: lifecycle/simpleanalytics-lifecycle.yml
+related:
+  blog: https://www.simpleanalytics.com/blog
+  blog_archive: blogs/
+  note: >-
+    The repo already carries 57 harvested posts under blogs/, which is where
+    dated product narrative is actually readable for this provider.

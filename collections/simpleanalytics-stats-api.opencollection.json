@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Simple Analytics Events Stats API",
+    "version": "6"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Api-Key",
+      "value": "{{Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get aggregated statistics for a website.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://simpleanalytics.com/:hostname.json",
+            "params": [
+              {
+                "name": "hostname",
+                "value": "",
+                "type": "path",
+                "description": "The website hostname, e.g. simpleanalytics.com"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "API version. Latest is 6."
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start date in YYYY-MM-DD format. Defaults to one month ago."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End date in YYYY-MM-DD format. Defaults to today."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return, e.g. pageviews,visitors,histogram,pages,countries,referrers,utm_sources."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results for list fields (1-1000)."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "A valid timezone such as Europe/Amsterdam."
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Histogram interval."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a page path, supports the * wildcard."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Filter by ISO country code."
+              },
+              {
+                "name": "referrer",
+                "value": "",
+                "type": "query",
+                "description": "Filter by referrer."
+              },
+              {
+                "name": "utm_source",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "utm_medium",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "utm_campaign",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the aggregated statistics shown in the dashboard as JSON for the given hostname. Public websites can be queried without credentials; private websites require Api-Key and User-Id headers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

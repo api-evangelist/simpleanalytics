@@ -3,9 +3,13 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: Simple Analytics
 providerId: simpleanalytics
+generated: '2026-08-13'
+method: searched
+source: https://www.simpleanalytics.com/pricing
 created: '2026-06-21'
-modified: '2026-06-21'
-reconciled: false
+modified: '2026-08-13'
+reconciled: true
+reconciledOn: '2026-08-13'
 tags:
 - Analytics
 - Web Analytics
@@ -13,159 +17,193 @@ tags:
 - Cookieless
 - GDPR
 - Plans
+plan_count: 3
 description: >-
-  Simple Analytics offers a free forever plan plus paid plans scaled by the
-  number of data points (page views plus events) collected per month and the
-  number of tracked websites. Paid tiers have historically been published as
-  Starter and Business with set data point allowances; the current pricing page
-  also presents a usage-slider "self-serve" subscription (100k to 2.5M data
-  points per month) and an Enterprise plan. Raw, per-event data export and the
-  add-website Admin endpoint require a Business or Enterprise plan. Prices below
-  are representative and should be reconciled against the live pricing page.
+  Read from the live pricing page on 2026-08-13. Simple Analytics now publishes
+  three tiers: a free-forever plan, a single usage-slider Self-serve
+  subscription priced on monthly pageviews, and Enterprise on request. The
+  previously published Starter and Business tier names have been folded into
+  the one Self-serve subscription — the slider, not a tier name, is what sets
+  the price. Billing is per month or annually (two months free), and extra
+  seats are charged separately.
 notes: >-
-  Plan names and prices change; the pricing page now blends Starter/Business
-  into a usage-slider subscription. Verify the live page on reconciliation.
-sources:
-- https://www.simpleanalytics.com/pricing
-- https://docs.simpleanalytics.com/api
+  The listed $20/month is the price at the slider's 100k-pageviews floor; the
+  slider runs from 100k to 2.5M pageviews per month and the page does not
+  publish the price at every stop, so only the floor price is recorded here as
+  a fact. Plan gating still governs the API: the Export API and the addWebsite
+  Admin endpoint require a Business or Enterprise plan per
+  docs.simpleanalytics.com, and the Admin API docs warn that calling addWebsite
+  auto-upgrades the account.
+currencies:
+- USD
+- EUR
+- GBP
+billing_periods:
+- monthly
+- annual
+annual_discount: 2 months free
+payment_methods:
+- Credit card
+- Debit card
+- Apple Pay
+- Google Pay
+- Bitcoin (+10% surcharge, annual only)
+- Bank transfer (invoices from $500, +10% banking and service fees)
+trial:
+  exists: true
+  length_days: 14
+  credit_card_required: false
+  note: >-
+    All features are unrestricted during the 14-day trial regardless of plan.
+    After it ends you pick a paid plan or downgrade to the free plan.
 plans:
 - id: simpleanalytics-free
   name: Free
   type: free
+  price: 0
+  currency: USD
+  billingPeriod: month
   description: >-
-    Free forever cookieless analytics with a one-page dashboard, no cookie
-    banner, EU hosting, and a fair-use page view allowance.
+    Free forever for hobby sites. Unlimited pageviews under a fair-use policy,
+    with a required Simple Analytics badge on the site.
   entries:
-  - label: Data Points
-    name: free_datapoints
+  - label: Users
+    name: free_users
     type: limit
-    metric: datapoints
-    limit: -1
+    metric: users
+    limit: 1
     timeFrame: month
-    geo: global
     unit: 1
-    price: $0 (unlimited under fair use)
-    userMultiplied: false
+    price: included
   - label: Websites
     name: free_websites
     type: limit
     metric: websites
     limit: 5
     timeFrame: month
-    geo: global
     unit: 1
     price: included
-    userMultiplied: false
   - label: History
     name: free_history
     type: limit
-    metric: days
-    limit: 30
+    metric: months
+    limit: 1
     timeFrame: month
-    geo: global
     unit: 1
     price: included
-    userMultiplied: false
-  elements:
-  - name: Stats API
-  - name: Aggregated Export
-  - name: List Websites
-- id: simpleanalytics-starter
-  name: Starter
-  type: subscription
-  description: >-
-    Entry paid plan with a 100k data point per month allowance and aggregated
-    export, billed monthly or annually.
-  entries:
-  - label: Data Points
-    name: starter_datapoints
+    note: >-
+      One month of history. Data older than 30 days is deleted from the servers.
+  - label: Pageviews
+    name: free_pageviews
     type: limit
-    metric: datapoints
+    metric: pageviews
+    limit: -1
+    timeFrame: month
+    unit: 1
+    price: included
+    note: Unlimited under a fair-use policy; the team emails you if you exceed it.
+  requirements:
+  - Simple Analytics badge required on the site
+- id: simpleanalytics-self-serve
+  name: Self-serve
+  type: subscription
+  price: 20
+  currency: USD
+  billingPeriod: month
+  priceNote: >-
+    Price shown at the slider floor of 100k monthly pageviews; the slider runs
+    to 2.5M and the page does not publish every stop.
+  description: >-
+    Simple, privacy-friendly analytics with a one-page dashboard. Priced on
+    estimated monthly pageviews via a slider, billed monthly or annually.
+  entries:
+  - label: Pageviews
+    name: selfserve_pageviews
+    type: limit
+    metric: pageviews
     limit: 100000
     timeFrame: month
-    geo: global
     unit: 1
-    price: from ~$9-$20/mo (annual/monthly)
-    userMultiplied: false
-  - label: Websites
-    name: starter_websites
+    price: $20/month at this tier
+    note: Slider range 100k to 2.5M pageviews per month.
+  - label: Users
+    name: selfserve_users
     type: limit
-    metric: websites
-    limit: 10
+    metric: users
+    limit: 1
     timeFrame: month
-    geo: global
     unit: 1
     price: included
-    userMultiplied: false
-  elements:
-  - name: Stats API
-  - name: Aggregated Export
-  - name: List Websites
-- id: simpleanalytics-business
-  name: Business
-  type: subscription
-  description: >-
-    Higher-volume paid plan with up to 1M+ data points per month, raw per-event
-    data export, and the add-website Admin endpoint.
-  entries:
-  - label: Data Points
-    name: business_datapoints
-    type: limit
-    metric: datapoints
-    limit: 1000000
-    timeFrame: month
-    geo: global
-    unit: 1
-    price: from ~$49-$59/mo (annual/monthly)
-    userMultiplied: false
-  - label: Websites
-    name: business_websites
-    type: limit
-    metric: websites
-    limit: 100
-    timeFrame: month
-    geo: global
-    unit: 1
-    price: included
-    userMultiplied: false
-  - label: Additional Users
-    name: business_extra_users
-    type: usage
+  - label: Extra user
+    name: selfserve_extra_user
+    type: overage
     metric: users
     limit: -1
     timeFrame: month
-    geo: global
     unit: 1
-    price: ~$20/mo per additional user
+    price: $20/month per extra user
     userMultiplied: true
-  elements:
-  - name: Stats API
-  - name: Raw Level Export
-  - name: Export API
-  - name: List Websites
-  - name: Add Website
+  overage:
+    model: automatic-tier-adjustment
+    note: >-
+      Monthly billing recalculates from usage (first the last month, then the
+      average of the previous three), so the fee follows traffic up and down.
+      On annual plans you estimate usage up front; going over triggers an email
+      and one week to raise the limit before it is raised for you.
 - id: simpleanalytics-enterprise
   name: Enterprise
   type: enterprise
+  price: null
+  currency: null
+  billingPeriod: null
   description: >-
-    Custom data point volumes, unlimited users and history, traffic recovery,
-    warehouse/BI exports, and negotiated terms. Contact sales.
+    Simple Analytics as a data layer — positioned around recovering traffic
+    invisible to consent-dependent tools, running alongside GA4 or Adobe, and
+    exporting raw data to warehouses and BI tools. Priced on request via a demo.
+  contact: https://www.simpleanalytics.com/demo
   entries:
-  - label: Enterprise Agreement
-    name: enterprise
-    type: flat
+  - label: Pricing
+    name: enterprise_pricing
+    type: quote
     metric: contract
     limit: -1
     timeFrame: year
-    geo: global
     unit: 1
     price: contact sales
-    userMultiplied: false
-  elements:
-  - name: Custom Volume Pricing
-  - name: Raw Data Access
-  - name: Warehouse and BI Export
-  - name: Team Reporting
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+  capabilities:
+  - Single Sign-On (Okta and Microsoft Entra SAML)
+  - Role-based access
+  - Enterprise SLA
+  - SOC 2 compliance
+  - Contract reviews
+  - Looker Studio
+  - Priority support
+  - Vendor onboarding
+  - Data proxy
+  - Manual invoicing
+api_plan_gating:
+- operation: getStats
+  minimum_plan: free
+  note: Also available anonymously when the website is public.
+- operation: exportDataPoints
+  minimum_plan: business-or-enterprise
+  note: >-
+    Documented as Business/Enterprise for private accounts; verified answering
+    anonymously for a public hostname on 2026-08-13.
+  source: https://docs.simpleanalytics.com/api/export-data-points
+- operation: listWebsites
+  minimum_plan: free
+  note: The only Admin API endpoint available on all plans.
+  source: https://docs.simpleanalytics.com/api/admin
+- operation: addWebsite
+  minimum_plan: business-or-enterprise
+  note: Calling it auto-upgrades the account, per the Admin API docs.
+  source: https://docs.simpleanalytics.com/api/admin
+- operation: collectEvent
+  minimum_plan: free
+  note: No credentials required; consumes the account's pageview/event allowance.
+sources:
+- https://www.simpleanalytics.com/pricing
+- https://docs.simpleanalytics.com/api
+- https://docs.simpleanalytics.com/api/admin
+- https://docs.simpleanalytics.com/api/export-data-points
