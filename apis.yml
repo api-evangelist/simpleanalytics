@@ -38,7 +38,7 @@ tags:
 - Europe
 created: '2026-06-21'
 modified: '2026-08-13'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: simpleanalytics:simpleanalytics-events-api
   name: Simple Analytics Events API
