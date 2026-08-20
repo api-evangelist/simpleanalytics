@@ -33,6 +33,15 @@ tags:
 - Privacy
 - Cookieless
 - GDPR
+- Event
+- Data Export
+- Europe
+tags_raw:
+- Analytics
+- Web Analytics
+- Privacy
+- Cookieless
+- GDPR
 - Events
 - Data Export
 - Europe
@@ -48,6 +57,8 @@ apis:
   humanURL: https://docs.simpleanalytics.com/events/server-side
   baseURL: https://queue.simpleanalyticscdn.com
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
