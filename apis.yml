@@ -11,6 +11,18 @@ description: Simple Analytics is a privacy-first, cookieless web analytics platf
   administer the websites in an account. Public websites can be read anonymously on
   both read APIs, and a large first-party plugin library installs the tracking script
   across common frameworks and CMSes.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
