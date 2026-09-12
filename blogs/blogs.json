@@ -2,25 +2,21 @@
   "repo": "simpleanalytics",
   "feeds": [
     {
+      "source": "https://simpleanalytics.com/blog",
+      "feed_url": "https://simpleanalytics.com/blog",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
       "source": "https://www.simpleanalytics.com/feed.xml",
       "feed_url": "https://www.simpleanalytics.com/feed.xml",
       "title": "",
       "saved": 0,
-      "method": "feed",
-      "nature": "vendor-blog",
-      "nature_basis": "path_blog"
-    },
-    {
-      "source": "https://simpleanalytics.com/blog",
-      "feed_url": "https://www.simpleanalytics.com/feed.xml",
-      "title": "",
-      "saved": 0,
-      "method": "discovered",
-      "nature": "vendor-blog",
-      "nature_basis": "path_blog"
+      "method": "feed"
     }
   ],
-  "fetched": "2026-08-30T22:33:40Z",
+  "fetched": "2026-09-06T19:17:18Z",
   "post_count": 57,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
