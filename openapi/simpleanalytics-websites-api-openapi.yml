@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Simple Analytics Events Websites API
+  title: Simple Analytics Websites API
   description: Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).
   termsOfService: https://www.simpleanalytics.com/terms
   contact:
@@ -23,7 +23,7 @@ paths:
       operationId: listWebsites
       tags:
       - Websites
-      summary: List websites.
+      summary: List websites
       description: Returns all websites for the authenticated user. Available on all plans. Requires Api-Key and User-Id headers.
       responses:
         '200':
@@ -39,7 +39,7 @@ paths:
       operationId: addWebsite
       tags:
       - Websites
-      summary: Add a website.
+      summary: Add a website
       description: Adds a new website to the dashboard. Requires a Business or Enterprise plan and Api-Key and User-Id headers.
       requestBody:
         required: true

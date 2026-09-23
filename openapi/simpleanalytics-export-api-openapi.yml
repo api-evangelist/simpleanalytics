@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Simple Analytics Events Export API
+  title: Simple Analytics Export API
   description: Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).
   termsOfService: https://www.simpleanalytics.com/terms
   contact:
@@ -23,7 +23,7 @@ paths:
       operationId: exportDataPoints
       tags:
       - Export
-      summary: Export raw data points.
+      summary: Export raw data points
       description: Exports raw, per-event data points (pageviews or events) for a hostname as CSV or JSON. Requires Api-Key and User-Id headers and a Business or Enterprise plan.
       parameters:
       - name: version

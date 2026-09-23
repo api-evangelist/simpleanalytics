@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Simple Analytics Events API
   description: Specification of the Simple Analytics REST API. Simple Analytics is a privacy-first, cookieless web analytics platform. The API exposes aggregated dashboard statistics (Stats API), raw data point exports (Export API), server-side event collection, and website administration (Admin API).
@@ -23,7 +23,7 @@ paths:
       operationId: collectEvent
       tags:
       - Events
-      summary: Collect a server-side event or pageview.
+      summary: Collect a server-side event or pageview
       description: Sends a custom event or pageview to Simple Analytics from the server side. POST to https://queue.simpleanalyticscdn.com/events with a JSON payload describing the event.
       servers:
       - url: https://queue.simpleanalyticscdn.com
