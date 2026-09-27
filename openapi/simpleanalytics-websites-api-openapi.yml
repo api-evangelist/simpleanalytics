@@ -56,17 +56,6 @@ paths:
                 $ref: '#/components/schemas/Website'
 components:
   schemas:
-    Website:
-      type: object
-      properties:
-        hostname:
-          type: string
-        public:
-          type: boolean
-        timezone:
-          type: string
-        label:
-          type: string
     AddWebsiteRequest:
       type: object
       required:
@@ -84,6 +73,17 @@ components:
         label:
           type: string
           description: A custom label for organizing the website.
+    Website:
+      type: object
+      properties:
+        hostname:
+          type: string
+        public:
+          type: boolean
+        timezone:
+          type: string
+        label:
+          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

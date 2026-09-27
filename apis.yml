@@ -90,7 +90,7 @@ apis:
   description: The Export API from Simple Analytics — raw, unsampled data point export
     (page views and events) as JSON or CSV over a date range, with per-field selection.
   humanURL: https://docs.simpleanalytics.com/api/export-data-points
-  baseURL: https://simpleanalytics.com
+  baseURL: https://queue.simpleanalyticscdn.com
   tags:
   - Export
   properties:
@@ -112,7 +112,7 @@ apis:
     (pageviews, visitors, histogram, pages, countries, referrers, UTM and device
     breakdowns) as JSON for any tracked hostname.
   humanURL: https://docs.simpleanalytics.com/api/stats
-  baseURL: https://simpleanalytics.com
+  baseURL: https://queue.simpleanalyticscdn.com
   tags:
   - Stats
   properties:
@@ -134,7 +134,7 @@ apis:
     the websites in an account and adding a new one with timezone, visibility and
     label.
   humanURL: https://docs.simpleanalytics.com/api/admin
-  baseURL: https://simpleanalytics.com
+  baseURL: https://queue.simpleanalyticscdn.com
   tags:
   - Websites
   properties:
