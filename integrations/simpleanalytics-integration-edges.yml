@@ -1,0 +1,166 @@
+edges:
+- partner_name: Go module proxy
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official SDK (Go)
+  evidence: https://pkg.go.dev/github.com/simpleanalytics/cq-source-simpleanalytics
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Go module proxy (public registry JSON)
+    spec_file: null
+    language: Go
+    packages:
+    - name: github.com/simpleanalytics/cq-source-simpleanalytics
+      version: v1.0.0
+      released: '2023-02-03'
+      released_field: Time
+      lapsed: true
+      page: https://pkg.go.dev/github.com/simpleanalytics/cq-source-simpleanalytics
+      repo_leg: github-org:simpleanalytics
+      publisher_leg: org:simpleanalytics
+      matched_by: github-org
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@simpleanalytics/common
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@simpleanalytics/common'
+      version: 2.2.2
+      released: '2026-03-19'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@simpleanalytics/common
+      repo_leg: github-org:simpleanalytics
+      publisher_leg: email:simpleanalytics.com
+      matched_by: domain
+    - name: '@simpleanalytics/nuxt'
+      version: 2.0.0
+      released: '2025-11-07'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@simpleanalytics/nuxt
+      repo_leg: github-org:simpleanalytics
+      publisher_leg: email:simpleanalytics.com
+      matched_by: domain
+    - name: docusaurus-plugin-simple-analytics
+      version: 1.1.8
+      released: '2023-06-27'
+      released_field: modified
+      lapsed: true
+      page: https://www.npmjs.com/package/docusaurus-plugin-simple-analytics
+      repo_leg: github-org:simpleanalytics
+      publisher_leg: email:simpleanalytics.com
+      matched_by: domain
+    - name: simple-analytics-vue
+      version: 3.1.0
+      released: '2025-09-01'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/simple-analytics-vue
+      repo_leg: github-org:simpleanalytics
+      publisher_leg: email:simpleanalytics.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: PyPI
+  partner: pypi
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Python)
+  evidence: https://pypi.org/project/simpleanalytics/
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: PyPI (public registry JSON)
+    spec_file: null
+    language: Python
+    packages:
+    - name: simpleanalytics
+      version: 1.0.8
+      released: '2026-04-02'
+      released_field: upload_time
+      lapsed: false
+      page: https://pypi.org/project/simpleanalytics/
+      repo_leg: github-org:simpleanalytics
+      publisher_leg: email:simpleanalytics.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: RubyGems
+  partner: rubygems
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Ruby)
+  evidence: https://rubygems.org/gems/simple_analytics_rails
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: RubyGems (public registry JSON)
+    spec_file: null
+    language: Ruby
+    packages:
+    - name: simple_analytics_rails
+      version: 0.3.1
+      released: '2021-11-05'
+      released_field: version_created_at
+      lapsed: true
+      page: https://rubygems.org/gems/simple_analytics_rails
+      repo_leg: domain:simpleanalytics.com
+      publisher_leg: org:simpleanalytics
+      matched_by: domain
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+generated: '2026-10-18'
+method: searched
+source:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
+checked:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
